@@ -2,6 +2,7 @@ package apace.gameplay.actor;
 
 import apace.drawing.Sprite;
 import apace.gameplay.map.Map;
+import apace.process.IProcessable;
 import apace.utils.Direction;
 import apace.utils.Position;
 
@@ -13,7 +14,7 @@ public class ActorEnemy extends ActorLiving {
 		setAttackValue(atkValue);
 	}
 
-	public Direction takeTurn(Map map, ActorPlayer player) {
+	public IProcessable takeTurn(Map map, ActorPlayer player) {
 		Direction[] directions = Direction.values();
 		Direction bestMove = Direction.UP;
 		float bestValue = Float.POSITIVE_INFINITY;
@@ -29,10 +30,13 @@ public class ActorEnemy extends ActorLiving {
 				hasMove = true;
 			}
 		}
-		return bestMove;
+		if(hasMove) {
+			return tryMove(bestMove, map);
+		}
+		return null;
 	}
 	
 	private boolean isWalkableOrPlayer(Map map, ActorPlayer player, Position p) {
-		return map.isWalkable(p) || map.getActor(p) == player;
+		return map.isWalkable(p) || map.getActor(p) == player || map.isInteractable(p);
 	}
 }

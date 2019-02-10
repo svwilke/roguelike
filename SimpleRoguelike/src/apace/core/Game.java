@@ -1,9 +1,16 @@
 package apace.core;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import apace.SimpleRoguelike;
 import apace.drawing.Palette;
+import apace.drawing.Window;
+import apace.drawing.ui.WindowHealth;
+import apace.gameplay.actor.Actor;
+import apace.gameplay.actor.ActorEnemy;
 import apace.gameplay.actor.ActorPlayer;
 import apace.gameplay.map.Map;
 import apace.handler.KeyHandler;
@@ -11,6 +18,7 @@ import apace.handler.Keys;
 import apace.handler.MouseHandler;
 import apace.lib.Reference;
 import apace.process.IProcessable;
+import apace.process.MultiProcess;
 import apace.process.ScheduledCall;
 import apace.process.SequenceProcess;
 import apace.utils.Direction;
@@ -40,7 +48,6 @@ public class Game implements IProcessable {
     public static ActorPlayer player;
     
     private Game() {
-    	player = new ActorPlayer();
     	Position pDown = new Position(1, 1).add(Position.random(map.getWidth() - 2, map.getHeight() - 2));
     	map.generate(pDown.getX(), pDown.getY());
     	map.addActor(pDown, player);
@@ -51,6 +58,9 @@ public class Game implements IProcessable {
         Game.TIME = 0;
         shouldRender = true;
         shouldUpdate = true;
+        player = new ActorPlayer();
+        Window ui = new WindowHealth(Game.map.getWidth(), 0, player);
+		ui.show();
         Logic.push(new Game());
     }
 
@@ -78,8 +88,22 @@ public class Game implements IProcessable {
 				new ScheduledCall(() -> System.out.println("3"))));
 		}
 		if(anim != null) {
+			Logic.push(new ScheduledCall(() -> Logic.push(doAi())));
 			Logic.push(anim);
 		}
+	}
+	
+	public IProcessable doAi() {
+		List<IProcessable> aiTurns = new ArrayList<IProcessable>(map.getActorCount());
+		LinkedList<Actor> actors = Game.map.getActors();
+		actors.forEach((actor) -> {
+			if(actor instanceof ActorEnemy) {
+				IProcessable turn = ((ActorEnemy)actor).takeTurn(Game.map, Game.player);
+				aiTurns.add(turn);
+			}
+		});
+		MultiProcess aiTurn = new MultiProcess(aiTurns);
+		return aiTurn;
 	}
 
 	@Override
