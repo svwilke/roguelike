@@ -23,6 +23,12 @@ public class Logic {
         if(!processStack.isEmpty()) {
         	IProcessable current = processStack.peek();
         	if(current != lastProcess) {
+        		if(lastProcess != null) {
+        			lastProcess.exit();
+        			if(lastProcess.isDone()) {
+        				lastProcess.end();
+        			}
+        		}
         		if(!startedSet.contains(current)) {
         			current.start();
         			startedSet.add(current);
@@ -47,8 +53,7 @@ public class Logic {
     }
     
     public static void pop() {
-    	processStack.peek().exit();
-    	processStack.pop().end();
+    	processStack.pop();
     }
     
     public static void push(IProcessable process) {
