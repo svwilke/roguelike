@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import apace.core.Game;
 import apace.core.Logic;
 import apace.core.Render;
-import apace.drawing.Window;
 import apace.handler.KeyHandler;
 import apace.handler.MouseHandler;
 import apace.lib.Reference;
@@ -85,19 +84,12 @@ public class SimpleRoguelike extends JPanel {
 		scaleTransform.scale(Reference.SCALING, Reference.SCALING);
 		scaleTransform.translate(0.5, 0.5);
 		g2.setTransform(scaleTransform);
-        //g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING,
-        //        RenderingHints.VALUE_ANTIALIAS_ON);
 		Render.render(g2);
+		
 		scaleTransform.setToIdentity();
 		scaleTransform.scale(Reference.SCALING, Reference.SCALING);
 		g2.setTransform(scaleTransform);
 		Render.renderWindows(g2);
-		//g2.scale(-0.125, -0.125);
-		//g2.setTransform(AffineTransform.getScaleInstance(Reference.SCALING * 4, Reference.SCALING * 4));
-		//Render.drawWindow(g2, 0, Game.map.getHeight() * Reference.TILE_SIZE, Reference.TILE_SIZE * 9, Reference.TILE_SIZE * 3);
-		//Render.drawText(g2, "Health: ÇÇÇÇ", Reference.TILE_SIZE / 2, Game.map.getHeight() * Reference.TILE_SIZE + (int)(Reference.TILE_SIZE * 0.5f), Game.palette.getColor(3));
-		//Render.drawText(g2, "Mana:   ÆÆÆ", Reference.TILE_SIZE / 2, Game.map.getHeight() * Reference.TILE_SIZE + (int)(Reference.TILE_SIZE * 1.5f), Game.palette.getColor(3));
-		//Render.drawText(g2, "Hello!", Reference.TILE_SIZE * 5, Reference.TILE_SIZE + (int)(Reference.TILE_SIZE * 4.5f), Game.palette.getColor(3));
 	}
 
 	public static void main(String[] args) {
@@ -105,8 +97,8 @@ public class SimpleRoguelike extends JPanel {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame frame = new JFrame(Reference.GAME_TITLE + " " + Reference.GAME_VERSION);
-				//frame.setLocation(-1024, 10);
-				frame.setLocationByPlatform(true);
+				//frame.setLocation(-12, 10);
+				frame.setLocationByPlatform(false);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setContentPane(new SimpleRoguelike());
 				//frame.setUndecorated(true);

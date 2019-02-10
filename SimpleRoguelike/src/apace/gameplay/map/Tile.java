@@ -89,7 +89,7 @@ public class Tile {
 		p.reset();
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public <T> Property<T> getProperty(String address) {
 		Class c = this.getClass();
 		while(c != Object.class) {

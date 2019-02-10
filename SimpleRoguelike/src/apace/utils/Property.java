@@ -21,6 +21,7 @@ public class Property<T> extends Observable implements Cloneable {
 		notifyObservers(old);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public Property<T> clone() {
 		try {

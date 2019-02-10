@@ -1,9 +1,7 @@
 package apace.gameplay.map;
 
 import apace.core.Logic;
-import apace.gameplay.actor.ActorEnemy;
 import apace.lib.Enemies;
-import apace.lib.Sprites;
 import apace.lib.Tiles;
 import apace.utils.Position;
 
@@ -28,9 +26,6 @@ public class RandomWallGenerator implements IMapGenerator {
 					case 2: case 3:
 						map.setTile(new Position(i, j), Tiles.WALL);
 						break;
-					//case 5:
-						//map.setTile(new Position(i, j), Logic.random.nextBoolean() ? Tiles.DOOR : Tiles.VASE_SMALL);
-						//break;
 					default:
 						map.setTile(new Position(i, j), Tiles.FLOOR);
 						break;

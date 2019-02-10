@@ -7,15 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import apace.core.Game;
-import apace.core.Logic;
 import apace.gameplay.IInteractable;
 import apace.gameplay.actor.Actor;
-import apace.gameplay.actor.ActorEnemy;
 import apace.gameplay.actor.ActorPlayer;
-import apace.process.IProcessable;
-import apace.process.MultiProcess;
-import apace.process.ScheduledCall;
-import apace.process.SequenceProcess;
 import apace.utils.Position;
 
 public class Map {
