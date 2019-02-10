@@ -16,12 +16,13 @@ import apace.process.ScheduledCall;
 import apace.process.SequenceProcess;
 import apace.utils.Direction;
 import apace.utils.Position;
+import apace.utils.Property;
 
 public class ActorLiving extends Actor implements IInteractable, Cloneable {
 	
-	private int health = 1;
-	private int maxHealth = 1;
-	private int attackValue = 0;
+	private Property<Integer> health = new Property<>(1);
+	private Property<Integer> maxHealth = new Property<>(1);
+	private Property<Integer> attackValue = new Property<>(0);
 	private boolean isDead = false;
 	
 	public ActorLiving(Sprite sprite) {
@@ -33,19 +34,24 @@ public class ActorLiving extends Actor implements IInteractable, Cloneable {
 	 * @param maxHealth
 	 */
 	public void setMaxHealth(int maxHealth) {
-		this.maxHealth = this.health = maxHealth;
+		this.maxHealth.setValue(maxHealth);
+		this.health.setValue(maxHealth);
+	}
+	
+	public int getMaxHealth() {
+		return maxHealth.getValue();
 	}
 	
 	public int getAttackValue() {
-		return attackValue;
+		return attackValue.getValue();
 	}
 	
 	public void setAttackValue(int value) {
 		if(value < 0) {
 			System.out.println("## Attack value was called to be a negative number. Clamping to 0 instead.");
-			attackValue = 0;
+			attackValue.setValue(0);
 		} else {
-			attackValue = value;
+			attackValue.setValue(value);
 		}
 	}
 	
@@ -53,8 +59,8 @@ public class ActorLiving extends Actor implements IInteractable, Cloneable {
 		if(dmg < 0) {
 			throw new IllegalArgumentException("ActorLiving#damage should not be used with negative values. Use ActorLiving#heal instead.");
 		}
-		health -= dmg;
-		if(health <= 0) {
+		health.setValue(health.getValue() - dmg);
+		if(health.getValue() <= 0) {
 			die();
 		}
 	}
@@ -63,7 +69,7 @@ public class ActorLiving extends Actor implements IInteractable, Cloneable {
 		if(hpGain < 0) {
 			throw new IllegalArgumentException("ActorLiving#heal should not be used with negative values. Use ActorLiving#damage instead.");
 		}
-		health = Math.min(maxHealth, health + hpGain);
+		health.setValue(Math.min(maxHealth.getValue(), health.getValue() + hpGain));
 	}
 	
 	public void die() {
@@ -78,7 +84,7 @@ public class ActorLiving extends Actor implements IInteractable, Cloneable {
 	public IProcessable interact(Map map, Actor actor, Position position) {
 		int damage = 0;
 		if(actor instanceof ActorLiving) {
-			damage = ((ActorLiving)actor).attackValue;
+			damage = ((ActorLiving)actor).attackValue.getValue();
 		}
 		if(damage <= 0) {
 			return null;
@@ -103,7 +109,11 @@ public class ActorLiving extends Actor implements IInteractable, Cloneable {
 	@Override
 	public ActorLiving clone() {
 		try {
-			return (ActorLiving)super.clone();
+			ActorLiving clone = (ActorLiving)super.clone();
+			clone.attackValue = attackValue.clone();
+			clone.health = health.clone();
+			clone.maxHealth = maxHealth.clone();
+			return clone;
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException("Clone function of ActorLiving invalid. CloneNotSupportedException.");
 		}
