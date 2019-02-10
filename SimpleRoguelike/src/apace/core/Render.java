@@ -23,17 +23,20 @@ public class Render {
             g.drawLine(5, 5, 100, 200);
             Game.palette.reset();*/
         	Game.map.render(g, 0, 0);
-        	try {
-        		for(Window w : windows) {
-            		w.render(g);
-            	}
-        	} catch(ConcurrentModificationException e) {
-        		System.err.println("Another window was sucked up into the void.");
-        	}
-        	windows.removeAll(windowsToRemove);
-        	windowsToRemove.clear();
         }
         drawText(g, Logic.getStackDescription(), 0, Game.map.getHeight() * Reference.TILE_SIZE, Color.CYAN);
+    }
+    
+    public static void renderWindows(Graphics2D g) {
+    	try {
+    		for(Window w : windows) {
+        		w.render(g);
+        	}
+    	} catch(ConcurrentModificationException e) {
+    		System.err.println("Another window was sucked up into the void.");
+    	}
+    	windows.removeAll(windowsToRemove);
+    	windowsToRemove.clear();
     }
     
     public static void addWindow(Window window) {

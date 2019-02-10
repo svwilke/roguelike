@@ -48,19 +48,6 @@ public class SimpleRoguelike extends JPanel {
 			e.printStackTrace();
 		}
 		
-		Window ui = new Window(Game.map.getWidth(), 1, 9, 3);
-		ui.setText("Health: ÇÇÇÇ\nMana:   ÆÆÆ");
-		ui.show();
-		ui = new Window(Game.map.getWidth(), 4, 9, 8);
-		ui.setText("Strength:     79\n" +
-				   "Awareness:    66\n" +
-				   "Intelligence: 45\n" +
-				   "Vitality:     59\n" +
-				   "Talent:       60\n" +
-				   "Speed:        71\n" +
-				   "Luck:         50\n");			
-		ui.show();
-		
 		Thread gameThread = new Thread() {
 			public void run() {
 			    Game.startGame();
@@ -71,7 +58,6 @@ public class SimpleRoguelike extends JPanel {
 				    keyHandler.poll();
 				    
 				    Logic.update(tickCount);
-				    
 					repaint();
 					
 					tickCount++;
@@ -105,6 +91,7 @@ public class SimpleRoguelike extends JPanel {
 		scaleTransform.setToIdentity();
 		scaleTransform.scale(Reference.SCALING, Reference.SCALING);
 		g2.setTransform(scaleTransform);
+		Render.renderWindows(g2);
 		//g2.scale(-0.125, -0.125);
 		//g2.setTransform(AffineTransform.getScaleInstance(Reference.SCALING * 4, Reference.SCALING * 4));
 		//Render.drawWindow(g2, 0, Game.map.getHeight() * Reference.TILE_SIZE, Reference.TILE_SIZE * 9, Reference.TILE_SIZE * 3);
@@ -123,6 +110,7 @@ public class SimpleRoguelike extends JPanel {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setContentPane(new SimpleRoguelike());
 				//frame.setUndecorated(true);
+				frame.setResizable(false);
 				frame.pack();
 				frame.setVisible(true);
 				frame.addKeyListener(keyHandler);
