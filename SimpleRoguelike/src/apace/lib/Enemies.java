@@ -4,5 +4,5 @@ import apace.gameplay.actor.ActorEnemy;
 
 public class Enemies {
 
-	public static ActorEnemy SLIME_SMALL = new ActorEnemy(Sprites.SLIME, 7, 1);
+	public static ActorEnemy SLIME_SMALL = new ActorEnemy(Sprites.SLIME, 1, 1);
 }

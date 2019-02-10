@@ -6,7 +6,7 @@ public class ActorPlayer extends ActorLiving {
 	
 	public ActorPlayer() {
 		super(Sprites.PLAYER);
-		setAttackValue(2);
+		setAttackValue(1);
 		setMaxHealth(5);
 	}
 }
