@@ -3,6 +3,7 @@ package apace.gameplay.map;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import apace.core.Game;
@@ -61,6 +62,10 @@ public class Map {
 			throw new IllegalArgumentException("Position argument is out of bounds.");
 		}
 		return tiles[p.getX()][p.getY()];
+	}
+	
+	public LinkedList<Actor> getActors() {
+		return new LinkedList<Actor>(actors.values());
 	}
 	
 	public Actor getActor(Position p) {
@@ -164,6 +169,10 @@ public class Map {
 		}); 
 		delayedDraws.forEach((actor) -> actor.render(g, this, Game.palette, actor.getPosition()));
 		// ^ actor.getPosition instead of map key position might cause problems
+	}
+
+	public int getActorCount() {
+		return actors.size();
 	}
 	
 }
