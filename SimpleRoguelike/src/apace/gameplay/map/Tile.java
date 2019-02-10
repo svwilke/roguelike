@@ -1,6 +1,7 @@
 package apace.gameplay.map;
 
 import java.awt.Graphics2D;
+import java.lang.reflect.Field;
 
 import apace.drawing.Palette;
 import apace.drawing.PaletteSwap;
@@ -8,6 +9,7 @@ import apace.drawing.Sprite;
 import apace.gameplay.actor.Actor;
 import apace.lib.Sprites;
 import apace.utils.Position;
+import apace.utils.Property;
 
 public class Tile {
 
@@ -87,4 +89,23 @@ public class Tile {
 		p.reset();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public <T> Property<T> getProperty(String address) {
+		Class c = this.getClass();
+		while(c != Object.class) {
+			try {
+				Field f = c.getDeclaredField(address);
+				if(f != null) {
+					f.setAccessible(true);
+				}
+				return (Property<T>)f.get(this);
+			} catch (NoSuchFieldException e) {
+				c = c.getSuperclass();
+			} catch (IllegalArgumentException | IllegalAccessException | SecurityException | ClassCastException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return null;
+	}
 }
