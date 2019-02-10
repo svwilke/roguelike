@@ -1,5 +1,8 @@
 package apace.utils;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import apace.core.Logic;
 import apace.lib.Reference;
 
@@ -118,5 +121,45 @@ public class Position {
 		float dx = (float)(p.x - x);
 		float dy = (float)(p.y - y);
 		return dx * dx + dy * dy;
+	}
+	
+	public int distanceManhattan(Position p) {
+		return p.x - x + p.y - y;
+	}
+	
+	public List<Position> lineTo(Position p) {
+		List<Position> line = new LinkedList<Position>();
+		int x1, y1, x2, y2, sx, sy, dx, dy;
+		x1 = x; y1 = y; x2 = p.x; y2 = p.y;
+		if(x1 < x2) {
+			sx = 1;
+			dx = x2 - x1;
+		} else {
+			sx = -1;
+			dx = x1 - x2;
+		}
+		if(y1 < y2) {
+			sy = 1;
+			dy = y2 - y1;
+		} else {
+			sy = -1;
+			dy = y1 - y2;
+		}
+		int err, e2;
+		err = dx - dy;
+		line.add(new Position(x1, y1));
+		while(x1 != x2 || y1 != y2) {
+			e2 = err * 2;
+			if(e2 > -dy) {
+				err -= dy;
+				x1 += sx;
+			}
+			if(e2 < dx) {
+				err += dx;
+				y1 += sy;
+			}
+			line.add(new Position(x1, y1));
+		}
+		return line;
 	}
 }
