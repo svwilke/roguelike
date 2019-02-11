@@ -3,6 +3,7 @@ package apace.gameplay.map;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,12 +11,14 @@ import apace.core.Game;
 import apace.gameplay.IInteractable;
 import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
+import apace.utils.Direction;
 import apace.utils.Position;
 
 public class Map {
 	private int width;
 	private int height;
 	private Tile[][] tiles;
+	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
 	
@@ -27,6 +30,7 @@ public class Map {
 	
 	public void clear() {
 		tiles = new Tile[width][height];
+		visibility = new boolean[width][height];
 		actors = new HashMap<Position, Actor>();
 	}
 	
@@ -93,6 +97,9 @@ public class Map {
 		}
 		actors.put(p, a);
 		a.setPosition(p);
+		if(a == Game.player) {
+			updateVisibility();
+		}
 	}
 	
 	public void removeActor(Position p, Actor a) {
@@ -114,13 +121,26 @@ public class Map {
 	}
 	
 	public boolean isWalkable(Position p) {
-		if(actors.containsKey(p)) {
+		if(hasActor(p)) {
 			return actors.get(p).isWalkable();
 		}
 		if(hasTile(p)) {
 			return getTile(p).isWalkable();
 		}
 		return false;
+	}
+	
+	public boolean isVisible(Position p) {
+		if(isInBounds(p)) {
+			return visibility[p.getX()][p.getY()];
+		}
+		return false;
+	}
+	
+	public boolean isOpaque(Position p) {
+		boolean actor = hasActor(p) && actors.get(p).isOpaque();
+		boolean tile = hasTile(p) && getTile(p).isOpaque();
+		return actor || tile;
 	}
 	
 	public boolean isInteractable(Position p) {
@@ -148,7 +168,7 @@ public class Map {
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				Position p = new Position(x, y);
-				if(hasTile(p)) {
+				if(hasTile(p) && isVisible(p)) {
 					getTile(p).render(g, this, Game.palette, p);
 				}
 			}
@@ -156,7 +176,8 @@ public class Map {
 		List<Actor> delayedDraws = new ArrayList<Actor>(10);
 		actors.forEach((pos, actor) -> {
 			if(!(actor instanceof ActorPlayer)) {
-				actor.render(g, this, Game.palette, pos);
+				if(isVisible(pos))
+					actor.render(g, this, Game.palette, pos);
 			} else {
 				delayedDraws.add(actor);
 			}
@@ -167,6 +188,38 @@ public class Map {
 
 	public int getActorCount() {
 		return actors.size();
+	}
+	
+	public void updateVisibility() {
+		Position[] bounds = new Position[(width * 2) + (height * 2) - 4];
+		int index = 0;
+		for(int x = 0; x < width; x++) {
+			bounds[index++] = new Position(x, 0);
+			bounds[index++] = new Position(x, height - 1);
+		}
+		for(int y = 1; y < height - 1; y++) {
+			bounds[index++] = new Position(0, y);
+			bounds[index++] = new Position(width - 1, y);
+		}
+		//boolean[][] vis = new boolean[width][height];
+		for(Position p : bounds) {
+			List<Position> line = Game.player.getPosition().lineTo(p);
+			boolean visible = true;
+			for(Position q : line) {
+				
+				if(isOpaque(q)) {
+					visible = false;
+				}
+				visibility[q.getX()][q.getY()] |= visible;
+				for(Direction d : Direction.values()) {
+					Position r = d.from(q);
+					if(isInBounds(r) && isOpaque(r)) {
+						visibility[r.getX()][r.getY()] |= visible;
+					}
+				}
+			}
+		}
+		//visibility = vis;
 	}
 	
 }

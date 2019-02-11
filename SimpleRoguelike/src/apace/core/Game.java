@@ -51,6 +51,7 @@ public class Game implements IProcessable {
     	Position pDown = new Position(1, 1).add(Position.random(map.getWidth() - 2, map.getHeight() - 2));
     	map.generate(pDown.getX(), pDown.getY());
     	map.addActor(pDown, player);
+    	//map.updateVisibility();
     	//map.addActor(pDown.up().up(), new ActorEnemy(Sprites.SLIME));
     }
     
@@ -59,7 +60,7 @@ public class Game implements IProcessable {
         shouldRender = true;
         shouldUpdate = true;
         player = new ActorPlayer();
-        Window ui = new WindowHealth(Game.map.getWidth(), 0, player);
+        Window ui = new WindowHealth(Game.map.getWidth(), 1, player);
 		ui.show();
         Logic.push(new Game());
     }
@@ -88,7 +89,7 @@ public class Game implements IProcessable {
 				new ScheduledCall(() -> System.out.println("3"))));
 		}
 		if(anim != null) {
-			Logic.push(new ScheduledCall(() -> Logic.push(doAi())));
+			Logic.push(new ScheduledCall(() -> { map.updateVisibility(); Logic.push(doAi()); }));
 			Logic.push(anim);
 		}
 	}
