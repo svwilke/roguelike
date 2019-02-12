@@ -41,7 +41,7 @@ public class Sprites {
 	private static SpriteSheet wallSheet = new SpriteSheet("walls.png", Game.palette);
 	
 	static {
-		WALL = sheet.getSprite(4, 0);
+		WALL = wallSheet.getSprite(5, 0);
 		HALFWALL = sheet.getSprite(4, 1, 8, 4);
 		FLOOR = sheet.getSprite(5, 0);
 		/*PLAYER_0 = sheet.getSprite(0, 4);
@@ -58,7 +58,8 @@ public class Sprites {
 		STAIRS_DOWN = sheet.getSprite(2, 0);
 		STAIRS_UP = sheet.getSprite(3, 0);
 		VASE_SMALL = sheet.getSprite(5, 1);
-		WALLS = new Sprite[256];
+		WALLS = wallSheet.createAutotile();
+		/*WALLS = new Sprite[256];
 		// Cardinals
 		for(int i = 128; i <= 143; i++)
 			WALLS[i] = wallSheet.getSprite(2, 0);
@@ -152,7 +153,7 @@ public class Sprites {
 		
 		for(int i = 0; i <= 15; i++) {
 			WALLS[i] = wallSheet.getSprite(4, 0);
-		}
+		}*/
 	}
 	
 	public static Sprite loadSprite(String fileName, Palette palette) {

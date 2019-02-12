@@ -71,4 +71,108 @@ public class SpriteSheet {
 		sprites.put(pos, sprite);
 		return sprite;
 	}
+	
+	public Sprite[] createAutotile() {
+		Sprite[] tiles = new Sprite[256];
+		tiles = new Sprite[256];
+		// Cardinals
+		for(int i = 128; i <= 143; i++)
+			tiles[i] = this.getSprite(2, 0);
+		for(int i = 16; i <= 31; i++)
+			tiles[i] = this.getSprite(1, 0);
+		for(int i = 32; i <= 47; i++)
+			tiles[i] = this.getSprite(3, 0);
+		for(int i = 64; i <= 79; i++)
+			tiles[i] = this.getSprite(0, 0);
+		
+		for(int i = 192; i <= 207; i++)
+			tiles[i] = this.getSprite(0, 3);
+		for(int i = 48; i <= 63; i++)
+			tiles[i] = this.getSprite(0, 4);
+		
+		// Outer Corners
+		for(int i = 160; i <= 175; i++)
+			tiles[i] = Flags.get(i, 3) ? this.getSprite(1, 2) : this.getSprite(5, 2);
+		for(int i = 96; i <= 111; i++)
+			tiles[i] = Flags.get(i, 2) ? this.getSprite(0, 2) : this.getSprite(4, 2);		
+		for(int i = 80; i <= 95; i++)
+			tiles[i] = Flags.get(i, 0) ? this.getSprite(0, 1) : this.getSprite(4, 1);		
+		for(int i = 144; i <= 159; i++)
+			tiles[i] = Flags.get(i, 1) ? this.getSprite(1, 1) : this.getSprite(5, 1);
+			
+		// Ups
+		for(int i = 224; i <= 227; i++)
+			tiles[i] = this.getSprite(7, 0);
+		for(int i = 236; i <= 239; i++)
+			tiles[i] = this.getSprite(1, 3);
+		for(int i = 232; i <= 235; i++)
+			tiles[i] = this.getSprite(4, 3);
+		for(int i = 228; i <= 231; i++)
+			tiles[i] = this.getSprite(5, 3);
+		
+		// Rights
+		for(int i = 112; i <= 127; i++) {
+			if(Flags.get(i, 2) && Flags.get(i, 0)) {
+				tiles[i] = this.getSprite(3, 3);
+			} else
+			if(Flags.get(i, 2)) {
+				tiles[i] = this.getSprite(7, 3);
+			} else
+			if(Flags.get(i, 0)) {
+				tiles[i] = this.getSprite(7, 4);
+			} else {
+				tiles[i] = this.getSprite(7, 2);
+			}
+		}
+		
+		for(int i = 208; i <= 223; i++) {
+			if(Flags.get(i, 1) && Flags.get(i, 0)) {
+				tiles[i] = this.getSprite(1, 4);
+			} else
+			if(Flags.get(i, 1)) {
+				tiles[i] = this.getSprite(4, 4);
+			} else
+			if(Flags.get(i, 0)) {
+				tiles[i] = this.getSprite(5, 4);
+			} else {
+				tiles[i] = this.getSprite(7, 1);
+			}
+		}
+		
+		for(int i = 176; i <= 191; i++) {
+			if(Flags.get(i, 3) && Flags.get(i, 1)) {
+				tiles[i] = this.getSprite(2, 3);
+			} else
+			if(Flags.get(i, 3)) {
+				tiles[i] = this.getSprite(6, 3);
+			} else
+			if(Flags.get(i, 1)) {
+				tiles[i] = this.getSprite(6, 4);
+			} else {
+				tiles[i] = this.getSprite(6, 2);
+			}
+		}
+		
+		tiles[240] = getSprite(6, 1);
+		tiles[241] = getSprite(3, 5);
+		tiles[242] = getSprite(0, 5);
+		tiles[243] = getSprite(5, 5);
+		tiles[244] = getSprite(2, 5);
+		tiles[245] = getSprite(4, 5);
+		tiles[246] = getSprite(2, 4);
+		tiles[247] = getSprite(3, 2);
+		tiles[248] = getSprite(1, 5);
+		tiles[249] = getSprite(3, 4);
+		tiles[250] = getSprite(6, 5);
+		tiles[251] = getSprite(2, 2);
+		tiles[252] = getSprite(7, 5);
+		tiles[253] = getSprite(3, 1);
+		tiles[254] = getSprite(2, 1);
+		tiles[255] = getSprite(6, 0);
+
+		for(int i = 0; i <= 15; i++) {
+			tiles[i] = this.getSprite(4, 0);
+		}
+		return tiles;
+	}
 }
