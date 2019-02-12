@@ -21,6 +21,7 @@ public class Map {
 	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
+	private boolean useFog = false;
 	
 	public Map(int width, int height) {
 		this.width = width;
@@ -168,7 +169,7 @@ public class Map {
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
 				Position p = new Position(x, y);
-				if(hasTile(p) && isVisible(p)) {
+				if(hasTile(p) && (!useFog || isVisible(p))) {
 					getTile(p).render(g, this, Game.palette, p);
 				}
 			}
@@ -176,7 +177,7 @@ public class Map {
 		List<Actor> delayedDraws = new ArrayList<Actor>(10);
 		actors.forEach((pos, actor) -> {
 			if(!(actor instanceof ActorPlayer)) {
-				if(isVisible(pos))
+				if(!useFog || isVisible(pos))
 					actor.render(g, this, Game.palette, pos);
 			} else {
 				delayedDraws.add(actor);

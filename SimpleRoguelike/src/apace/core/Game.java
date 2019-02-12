@@ -83,10 +83,7 @@ public class Game implements IProcessable {
 			Reference.SCALING--;
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPACE)) {
-			Logic.push(new SequenceProcess(
-				new ScheduledCall(() -> System.out.println("1")),
-				new ScheduledCall(() -> System.out.println("2")),
-				new ScheduledCall(() -> System.out.println("3"))));
+			Logic.push(new ScheduledCall(() -> Logic.push(doAi())));
 		}
 		if(anim != null) {
 			Logic.push(new ScheduledCall(() -> { map.updateVisibility(); Logic.push(doAi()); }));
