@@ -60,4 +60,23 @@ public class Sprite {
 			}
 		}
 	}
+	
+	@Override
+	public String toString() {
+		String s = "";
+		for(int i = 0; i < this.height; i++) {
+			for(int j = 0; j < this.width; j++) {
+				if(j > 0)
+					s += " ";
+				int v = data[j + (i * this.width)];
+				if(v < 10)
+					s += " ";
+				s += v;
+			}
+			if(i < this.height - 1) {
+				s += "\n";
+			}
+		}
+		return s;
+	}
 }

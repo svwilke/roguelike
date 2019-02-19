@@ -20,14 +20,13 @@ import apace.lib.Reference;
 import apace.process.IProcessable;
 import apace.process.MultiProcess;
 import apace.process.ScheduledCall;
-import apace.process.SequenceProcess;
 import apace.utils.Direction;
 import apace.utils.Position;
 
 public class Game implements IProcessable {
 
 	public static int TIME = 0;
-	public static Palette palette = new Palette(new Color[] {
+	/*public static Palette palette = new Palette(new Color[] {
 			new Color(0, 0, 0, 0),
 			new Color(0, 0, 0, 255),
 			new Color(80, 80, 80, 255),
@@ -35,8 +34,27 @@ public class Game implements IProcessable {
 			new Color(255, 255, 255, 255),
 			new Color(255, 255, 0, 255),
 			new Color(255, 127, 0, 255)
-		});
+		});*/
 	
+	public static Palette palette = new Palette(new Color[] {
+		new Color(0, 0, 0),
+		new Color(29, 43, 83),
+		new Color(126, 37, 83),
+		new Color(0, 135, 83),
+		new Color(171, 82, 54),
+		new Color(95, 87, 79),
+		new Color(194, 195, 199),
+		new Color(255, 241, 232),
+		new Color(255, 0, 77),
+		new Color(255, 163, 0),
+		new Color(255, 236, 39),
+		new Color(0, 228, 54),
+		new Color(41, 173, 255),
+		new Color(131, 118, 156),
+		new Color(255, 119, 168),
+		new Color(255, 204, 170),
+		new Color(0, 0, 0, 0),
+	});
     public static boolean shouldUpdate = false;
     public static boolean shouldRender = false;
     

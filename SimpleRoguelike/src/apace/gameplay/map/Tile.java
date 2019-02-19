@@ -84,7 +84,7 @@ public class Tile {
 		if(paletteSwap != null)
 			p.swap(paletteSwap);
 		if(clearBackground)
-			p.swap(0, 1);
+			p.swap(Palette.CLEAR, Palette.BLACK);
 		sprite.render(g, p, pos.getPixelX(), pos.getPixelY(), flipX, flipY);
 		p.reset();
 	}

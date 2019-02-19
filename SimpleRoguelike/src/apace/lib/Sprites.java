@@ -12,7 +12,6 @@ import apace.core.Game;
 import apace.drawing.AnimatedSprite;
 import apace.drawing.Palette;
 import apace.drawing.Sprite;
-import apace.utils.Flags;
 import apace.utils.SpriteSheet;
 
 public class Sprites {
@@ -41,13 +40,9 @@ public class Sprites {
 	private static SpriteSheet wallSheet = new SpriteSheet("walls.png", Game.palette);
 	
 	static {
-		WALL = wallSheet.getSprite(5, 0);
-		HALFWALL = sheet.getSprite(4, 1, 8, 4);
+		WALL = sheet.getSprite(4, 0);
+		HALFWALL = wallSheet.getSprite(5, 0, 8, 4);
 		FLOOR = sheet.getSprite(5, 0);
-		/*PLAYER_0 = sheet.getSprite(0, 4);
-		PLAYER_1 = sheet.getSprite(1, 4);
-		PLAYER_2 = sheet.getSprite(2, 4);
-		PLAYER = new AnimatedSprite(PLAYER_0, PLAYER_1, PLAYER_2, PLAYER_1);*/
 		PLAYER = new AnimatedSprite(actorSheet, 0, 0);
 		SLIME = new AnimatedSprite(actorSheet, 0, 2);
 		DOOR = sheet.getSprite(6, 0);
@@ -59,101 +54,6 @@ public class Sprites {
 		STAIRS_UP = sheet.getSprite(3, 0);
 		VASE_SMALL = sheet.getSprite(5, 1);
 		WALLS = wallSheet.createAutotile();
-		/*WALLS = new Sprite[256];
-		// Cardinals
-		for(int i = 128; i <= 143; i++)
-			WALLS[i] = wallSheet.getSprite(2, 0);
-		for(int i = 16; i <= 31; i++)
-			WALLS[i] = wallSheet.getSprite(1, 0);
-		for(int i = 32; i <= 47; i++)
-			WALLS[i] = wallSheet.getSprite(3, 0);
-		for(int i = 64; i <= 79; i++)
-			WALLS[i] = wallSheet.getSprite(0, 0);
-		
-		for(int i = 192; i <= 207; i++)
-			WALLS[i] = wallSheet.getSprite(0, 3);
-		for(int i = 48; i <= 63; i++)
-			WALLS[i] = wallSheet.getSprite(0, 4);
-		
-		// Outer Corners
-		for(int i = 160; i <= 175; i++)
-			WALLS[i] = Flags.get(i, 3) ? wallSheet.getSprite(1, 2) : wallSheet.getSprite(5, 2);
-		for(int i = 96; i <= 111; i++)
-			WALLS[i] = Flags.get(i, 2) ? wallSheet.getSprite(0, 2) : wallSheet.getSprite(4, 2);		
-		for(int i = 80; i <= 95; i++)
-			WALLS[i] = Flags.get(i, 0) ? wallSheet.getSprite(0, 1) : wallSheet.getSprite(4, 1);		
-		for(int i = 144; i <= 159; i++)
-			WALLS[i] = Flags.get(i, 1) ? wallSheet.getSprite(1, 1) : wallSheet.getSprite(5, 1);
-			
-		// Ups
-		for(int i = 224; i <= 227; i++)
-			WALLS[i] = wallSheet.getSprite(7, 0);
-		for(int i = 236; i <= 239; i++)
-			WALLS[i] = wallSheet.getSprite(1, 3);
-		for(int i = 232; i <= 235; i++)
-			WALLS[i] = wallSheet.getSprite(4, 3);
-		for(int i = 228; i <= 231; i++)
-			WALLS[i] = wallSheet.getSprite(5, 3);
-		
-		// Rights
-		for(int i = 112; i <= 127; i++) {
-			if(Flags.get(i, 2) && Flags.get(i, 0)) {
-				WALLS[i] = wallSheet.getSprite(3, 3);
-			} else
-			if(Flags.get(i, 2)) {
-				WALLS[i] = wallSheet.getSprite(7, 3);
-			} else
-			if(Flags.get(i, 0)) {
-				WALLS[i] = wallSheet.getSprite(7, 4);
-			} else {
-				WALLS[i] = wallSheet.getSprite(7, 2);
-			}
-		}
-		
-		for(int i = 208; i <= 223; i++) {
-			if(Flags.get(i, 1) && Flags.get(i, 0)) {
-				WALLS[i] = wallSheet.getSprite(1, 4);
-			} else
-			if(Flags.get(i, 1)) {
-				WALLS[i] = wallSheet.getSprite(4, 4);
-			} else
-			if(Flags.get(i, 0)) {
-				WALLS[i] = wallSheet.getSprite(5, 4);
-			} else {
-				WALLS[i] = wallSheet.getSprite(7, 1);
-			}
-		}
-		
-		for(int i = 176; i <= 191; i++) {
-			if(Flags.get(i, 3) && Flags.get(i, 1)) {
-				WALLS[i] = wallSheet.getSprite(2, 3);
-			} else
-			if(Flags.get(i, 3)) {
-				WALLS[i] = wallSheet.getSprite(6, 3);
-			} else
-			if(Flags.get(i, 1)) {
-				WALLS[i] = wallSheet.getSprite(6, 4);
-			} else {
-				WALLS[i] = wallSheet.getSprite(6, 2);
-			}
-		}
-		
-		for(int i = 240; i <= 255; i++) {
-			Sprite corner = EMPTY.copy();
-			if(!Flags.get(i, 0))
-				corner.add(wallSheet.getSprite(2, 1));
-			if(!Flags.get(i, 1))
-				corner.add(wallSheet.getSprite(3, 1));
-			if(!Flags.get(i, 2))
-				corner.add(wallSheet.getSprite(2, 2));
-			if(!Flags.get(i, 3))
-				corner.add(wallSheet.getSprite(3, 2));
-			WALLS[i] = corner;
-		}
-		
-		for(int i = 0; i <= 15; i++) {
-			WALLS[i] = wallSheet.getSprite(4, 0);
-		}*/
 	}
 	
 	public static Sprite loadSprite(String fileName, Palette palette) {

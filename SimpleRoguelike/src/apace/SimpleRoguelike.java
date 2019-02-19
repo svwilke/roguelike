@@ -86,9 +86,9 @@ public class SimpleRoguelike extends JPanel {
 		g2.setTransform(scaleTransform);
 		Render.render(g2);
 		
-		scaleTransform.setToIdentity();
-		scaleTransform.scale(Reference.SCALING, Reference.SCALING);
-		g2.setTransform(scaleTransform);
+		//scaleTransform.setToIdentity();
+		//scaleTransform.scale(Reference.SCALING, Reference.SCALING);
+		//g2.setTransform(scaleTransform);
 		Render.renderWindows(g2);
 	}
 

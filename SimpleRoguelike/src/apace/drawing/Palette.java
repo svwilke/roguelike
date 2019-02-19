@@ -4,13 +4,23 @@ import java.awt.Color;
 
 public class Palette {
 
-	public static final int CLEAR = 0;
-	public static final int BLACK = 1;
-	public static final int DARK_GRAY = 2;
-	public static final int LIGHT_GRAY = 3;
-	public static final int WHITE = 4;
-	public static final int YELLOW = 5;
-	public static final int ORANGE = 6;
+	public static final int CLEAR = 16;
+	public static final int BLACK = 0;
+	public static final int DARK_BLUE = 1;
+	public static final int DARK_RED = 2;
+	public static final int DARK_GREEN = 3;
+	public static final int BROWN = 4;
+	public static final int DARK_GRAY = 5;
+	public static final int GRAY = 6;
+	public static final int WHITE = 7;
+	public static final int RED = 8;
+	public static final int ORANGE = 9;
+	public static final int YELLOW = 10;
+	public static final int GREEN = 11;
+	public static final int BLUE = 12;
+	public static final int SLATE = 13;
+	public static final int PINK = 14;
+	public static final int BEIGE = 15;
 	
 	public static final int size = 256;
 	
