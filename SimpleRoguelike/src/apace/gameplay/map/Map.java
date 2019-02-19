@@ -10,6 +10,7 @@ import apace.core.Game;
 import apace.gameplay.IInteractable;
 import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
+import apace.gameplay.map.generator.RoomGenerator;
 import apace.utils.Direction;
 import apace.utils.Position;
 
@@ -20,7 +21,7 @@ public class Map {
 	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
-	private boolean useFog = false;
+	private boolean useFog = true;
 	
 	public Map(int width, int height) {
 		this.width = width;
@@ -37,8 +38,8 @@ public class Map {
 	public void generate(int x, int y) {
 		clear();
 		System.out.println("Creating map (" + width + ", " + height + ").");
-		new RandomWallGenerator().generate(this, x, y, 0);
-		//new RoomGenerator().generate(this, x, y, 0);
+		//new RandomWallGenerator().generate(this, x, y, 0);
+		new RoomGenerator().generate(this, x, y, 0);
 	}
 	
 	public int getWidth() {
@@ -52,6 +53,8 @@ public class Map {
 	public void setTile(Position p, Tile t) {
 		if(isInBounds(p)) {
 			tiles[p.getX()][p.getY()] = t;
+			if(Game.player != null && Game.player.getPosition() != null)
+				updateVisibility();
 		}
 	}
 	

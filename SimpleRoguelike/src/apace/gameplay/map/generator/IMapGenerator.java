@@ -1,4 +1,6 @@
-package apace.gameplay.map;
+package apace.gameplay.map.generator;
+
+import apace.gameplay.map.Map;
 
 public interface IMapGenerator {
 

@@ -1,6 +1,7 @@
-package apace.gameplay.map;
+package apace.gameplay.map.generator;
 
 import apace.core.Logic;
+import apace.gameplay.map.Map;
 import apace.lib.Enemies;
 import apace.lib.Tiles;
 import apace.utils.Position;
