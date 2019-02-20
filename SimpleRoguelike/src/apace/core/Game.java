@@ -2,6 +2,7 @@ package apace.core;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,14 +10,17 @@ import apace.SimpleRoguelike;
 import apace.drawing.Palette;
 import apace.drawing.Window;
 import apace.drawing.ui.WindowHealth;
+import apace.gameplay.ITurnTaker;
 import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorEnemy;
 import apace.gameplay.actor.ActorPlayer;
 import apace.gameplay.map.Map;
+import apace.gameplay.map.Tile;
 import apace.handler.KeyHandler;
 import apace.handler.Keys;
 import apace.handler.MouseHandler;
 import apace.lib.Reference;
+import apace.lib.Tiles;
 import apace.process.IProcessable;
 import apace.process.MultiProcess;
 import apace.process.ScheduledCall;
@@ -89,8 +93,10 @@ public class Game implements IProcessable {
 		IProcessable anim = null;
 		int[] keys = new int[] { Keys.LEFT, Keys.RIGHT, Keys.UP, Keys.DOWN };
 		Direction[] direction = Direction.values();
+		//int key = keyHandler.getBuffer();
 		for(int i = 0; i < keys.length; i++) {
 			if(keyHandler.isKeyDownOnce(keys[i])) {
+			//if(key == keys[i]) {
 				anim = player.tryMove(direction[i], map);
 			}
 		}
@@ -101,7 +107,8 @@ public class Game implements IProcessable {
 			Reference.SCALING--;
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPACE)) {
-			Logic.push(new ScheduledCall(() -> Logic.push(doAi())));
+			//Logic.push(new ScheduledCall(() -> Logic.push(doAi())));
+			anim = new ScheduledCall(() -> map.setTile(player.getPosition(), Tiles.BOMB));
 		}
 		if(anim != null) {
 			Logic.push(new ScheduledCall(() -> { map.updateVisibility(); Logic.push(doAi()); }));
@@ -112,9 +119,16 @@ public class Game implements IProcessable {
 	public IProcessable doAi() {
 		List<IProcessable> aiTurns = new ArrayList<IProcessable>(map.getActorCount());
 		LinkedList<Actor> actors = Game.map.getActors();
+		HashMap<Position, Tile> tiles = Game.map.getTiles();
+		tiles.forEach((position, tile) -> {
+			if(tile instanceof ITurnTaker) {
+				IProcessable turn = ((ITurnTaker)tile).takeTurn(map, position);
+				aiTurns.add(turn);
+			}
+		});
 		actors.forEach((actor) -> {
-			if(actor instanceof ActorEnemy) {
-				IProcessable turn = ((ActorEnemy)actor).takeTurn(Game.map, Game.player);
+			if(actor instanceof ITurnTaker) {
+				IProcessable turn = ((ITurnTaker)actor).takeTurn(Game.map, actor.getPosition());
 				aiTurns.add(turn);
 			}
 		});

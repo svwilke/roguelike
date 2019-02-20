@@ -39,9 +39,9 @@ public class RandomWallGenerator implements IMapGenerator {
 		map.setTile(pUp, Tiles.STAIRS_UP);
 		pUp = new Position(1, 1).add(Position.random(width - 2, height - 2));
 		map.setTile(pUp, Tiles.CHEST_LARGE);
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 4; i++) {
 			pUp = new Position(1, 1).add(Position.random(width - 2, height - 2));
-			map.addActor(pUp, Enemies.SLIME_SMALL.clone());
+			map.addActor(pUp, i < 3 ? Enemies.SLIME_SMALL.clone() : Enemies.SLIME_LARGE.clone());
 		}
 	}
 

@@ -24,7 +24,8 @@ public class Sprites {
 	public static Sprite PLAYER_1;
 	public static Sprite PLAYER_2;
 	public static Sprite PLAYER;
-	public static Sprite SLIME;
+	public static Sprite SLIME_SMALL;
+	public static Sprite SLIME_LARGE;
 	public static Sprite DOOR;
 	public static Sprite CHEST_CLOSED_LARGE;
 	public static Sprite CHEST_OPEN_LARGE;
@@ -33,18 +34,23 @@ public class Sprites {
 	public static Sprite STAIRS_DOWN;
 	public static Sprite STAIRS_UP;
 	public static Sprite VASE_SMALL;
+	public static Sprite BOMB_0;
+	public static Sprite BOMB_1;
+	public static Sprite BOMB_2;
+	public static Sprite BOMB_3;
 	public static Sprite[] WALLS;
 	
-	private static SpriteSheet sheet = new SpriteSheet("sprites.png", Game.palette);
+	private static SpriteSheet sheet = new SpriteSheet("sprites2.png", Game.palette);
 	private static SpriteSheet actorSheet = new SpriteSheet("actors.png", Game.palette);
-	private static SpriteSheet wallSheet = new SpriteSheet("walls.png", Game.palette);
+	private static SpriteSheet wallSheet = new SpriteSheet("walls4.png", Game.palette);
 	
 	static {
 		WALL = sheet.getSprite(4, 0);
 		HALFWALL = wallSheet.getSprite(5, 0, 8, 4);
 		FLOOR = sheet.getSprite(5, 0);
 		PLAYER = new AnimatedSprite(actorSheet, 0, 0);
-		SLIME = new AnimatedSprite(actorSheet, 0, 2);
+		SLIME_SMALL = new AnimatedSprite(actorSheet, 0, 2);
+		SLIME_LARGE = new AnimatedSprite(actorSheet, 0, 1);
 		DOOR = sheet.getSprite(6, 0);
 		CHEST_CLOSED_LARGE = sheet.getSprite(6, 4);
 		CHEST_OPEN_LARGE = sheet.getSprite(7, 4);
@@ -54,6 +60,10 @@ public class Sprites {
 		STAIRS_UP = sheet.getSprite(3, 0);
 		VASE_SMALL = sheet.getSprite(5, 1);
 		WALLS = wallSheet.createAutotile();
+		BOMB_0 = new AnimatedSprite(sheet.getSprite(0, 3), sheet.getSprite(4, 3));
+		BOMB_1 = new AnimatedSprite(sheet.getSprite(1, 3), sheet.getSprite(5, 3));
+		BOMB_2 = new AnimatedSprite(sheet.getSprite(2, 3), sheet.getSprite(6, 3));
+		BOMB_3 = new AnimatedSprite(sheet.getSprite(3, 3), sheet.getSprite(7, 3));
 	}
 	
 	public static Sprite loadSprite(String fileName, Palette palette) {

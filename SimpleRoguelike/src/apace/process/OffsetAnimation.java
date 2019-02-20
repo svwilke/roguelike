@@ -4,7 +4,7 @@ import apace.utils.Position;
 public class OffsetAnimation implements IProcessable {
 
 	private float animationTime = 0f;
-	private float animationSpeed = 0.2f;
+	private float animationSpeed = 0.3f;
 	
 	private Position position;
 	private int fromX, fromY, deltaX, deltaY;

@@ -10,7 +10,7 @@ import apace.core.Game;
 import apace.gameplay.IInteractable;
 import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
-import apace.gameplay.map.generator.RoomGenerator;
+import apace.gameplay.map.generator.RandomWallGenerator;
 import apace.utils.Direction;
 import apace.utils.Position;
 
@@ -21,7 +21,7 @@ public class Map {
 	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
-	private boolean useFog = true;
+	private boolean useFog = false;
 	
 	public Map(int width, int height) {
 		this.width = width;
@@ -38,8 +38,8 @@ public class Map {
 	public void generate(int x, int y) {
 		clear();
 		System.out.println("Creating map (" + width + ", " + height + ").");
-		//new RandomWallGenerator().generate(this, x, y, 0);
-		new RoomGenerator().generate(this, x, y, 0);
+		new RandomWallGenerator().generate(this, x, y, 0);
+		//new RoomGenerator().generate(this, x, y, 0);
 	}
 	
 	public int getWidth() {
@@ -63,6 +63,19 @@ public class Map {
 			throw new IllegalArgumentException("Position argument is out of bounds.");
 		}
 		return tiles[p.getX()][p.getY()];
+	}
+	
+	public HashMap<Position, Tile> getTiles() {
+		HashMap<Position, Tile> map = new HashMap<>(this.width * this.height);
+		for(int x = 0; x < width; x++) {
+			for(int y = 0; y < height; y++) {
+				Position p = new Position(x, y);
+				if(hasTile(p)) {
+					map.put(p, getTile(p));
+				}
+			}
+		}
+		return map;
 	}
 	
 	public LinkedList<Actor> getActors() {

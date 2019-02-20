@@ -6,8 +6,10 @@ import java.lang.reflect.Field;
 import apace.drawing.Palette;
 import apace.drawing.PaletteSwap;
 import apace.drawing.Sprite;
+import apace.gameplay.ITurnTaker;
 import apace.gameplay.actor.Actor;
 import apace.lib.Sprites;
+import apace.process.IProcessable;
 import apace.utils.Position;
 import apace.utils.Property;
 

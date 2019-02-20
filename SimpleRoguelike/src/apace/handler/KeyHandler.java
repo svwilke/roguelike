@@ -75,8 +75,15 @@ public class KeyHandler implements KeyListener{
         return false;
     }
     
-    public boolean isKeyDownOnce(int keyCode) {
+    /*public boolean isKeyDownOnce(int keyCode) {
         if(keys[keyCode] == KeyState.ONCE) {
+            return true;
+        }
+        return false;
+    }*/
+    
+    public boolean isKeyDownOnce(int keyCode) {
+    	if(keys[keyCode] == KeyState.ONCE) {
             return true;
         }
         return false;

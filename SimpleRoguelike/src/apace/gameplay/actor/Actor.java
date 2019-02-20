@@ -6,6 +6,7 @@ import apace.gameplay.map.Map;
 import apace.gameplay.map.Tile;
 import apace.lib.Reference;
 import apace.lib.Sounds;
+import apace.lib.Tiles;
 import apace.process.OffsetAnimation;
 import apace.process.IProcessable;
 import apace.process.MultiProcess;
@@ -54,7 +55,10 @@ public class Actor extends Tile {
 			anim = new MultiProcess(anim, interaction);
 		} else {
 			Sounds.BUMP.play();
-			anim = new SequenceProcess(new OffsetAnimation(position, 0, 0, targetX / 2, targetY / 2).setSpeed(0.3f), new OffsetAnimation(position, targetX / 2, targetY / 2, 0, 0).setSpeed(0.3f));
+			anim = new SequenceProcess(new OffsetAnimation(position, 0, 0, targetX / 2, targetY / 2).setSpeed(0.4f), new OffsetAnimation(position, targetX / 2, targetY / 2, 0, 0).setSpeed(0.4f));
+			if(map.hasTile(newPos)) {
+				map.setTile(newPos, Tiles.FLOOR);
+			}
 		}
 		return anim;
 	}
