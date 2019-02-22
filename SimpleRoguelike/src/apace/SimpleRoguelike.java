@@ -27,6 +27,7 @@ public class SimpleRoguelike extends JPanel {
     public static final int HEIGHT = Reference.HEIGHT;
 	
 	public static final int UPDATE_RATE = 60;
+	public static final int SLEEP_TIME = 1000 / UPDATE_RATE;
 	
 	private static int tickCount = 0;
 	
@@ -51,6 +52,7 @@ public class SimpleRoguelike extends JPanel {
 			public void run() {
 			    Game.startGame();
 				while (true) {
+					long now = System.currentTimeMillis();
 					Game.TIME++;
 					
 				    mouseHandler.poll();
@@ -61,9 +63,12 @@ public class SimpleRoguelike extends JPanel {
 					
 					tickCount++;
 					
-					
+					long delta = System.currentTimeMillis() - now;
 					try {
-						Thread.sleep(1000 / UPDATE_RATE);
+						long sleep = SLEEP_TIME - delta;
+						if(sleep > 0) {
+							Thread.sleep(sleep);
+						}
 					} catch (InterruptedException ex) {
 					}
 				}
