@@ -19,7 +19,16 @@ public class RandomWallGenerator implements IMapGenerator {
 					map.setTile(new Position(i, j), Tiles.STAIRS_DOWN);
 					continue;
 				}
-				
+				if(i == 0 || j == 0 || i == width - 1 || j == height - 1) {
+					map.setTile(new Position(i, j), Tiles.WALL);
+					continue;
+				}
+				if((i + 1) % 2 == 0 && (j + 1) % 2 == 0 && Logic.random.nextInt(2) == 0) {
+					map.setTile(new Position(i, j), Logic.random.nextBoolean() ? Tiles.WALL : Tiles.HOLE);
+					continue;
+				}
+				map.setTile(new Position(i, j), Tiles.FLOOR);
+				continue;/*
 				if(i == 0 || j == 0 || i == width - 1 || j == height - 1) {
 					map.setTile(new Position(i, j), Tiles.WALL);
 				} else {
@@ -31,7 +40,7 @@ public class RandomWallGenerator implements IMapGenerator {
 						map.setTile(new Position(i, j), Tiles.FLOOR);
 						break;
 					}
-				}
+				}*/
 				
 			}
 		}
@@ -39,9 +48,16 @@ public class RandomWallGenerator implements IMapGenerator {
 		map.setTile(pUp, Tiles.STAIRS_UP);
 		pUp = new Position(1, 1).add(Position.random(width - 2, height - 2));
 		map.setTile(pUp, Tiles.CHEST_LARGE);
-		for(int i = 0; i < 4; i++) {
+		for(int i = 0; i < 5; i++) {
+			if(i == 4) {
+				pUp = new Position(1, 1).add(Position.random(width - 2, height - 2));
+				map.addActor(pUp, Enemies.GROO.clone());
+				map.setTile(pUp, Tiles.FLOOR);
+				continue;
+			}
 			pUp = new Position(1, 1).add(Position.random(width - 2, height - 2));
 			map.addActor(pUp, i < 3 ? Enemies.SLIME_SMALL.clone() : Enemies.SLIME_LARGE.clone());
+			map.setTile(pUp, Tiles.FLOOR);
 		}
 	}
 

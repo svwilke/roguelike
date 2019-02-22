@@ -29,6 +29,14 @@ public class Sprite {
 		}
 	}
 	
+	public int getWidth() {
+		return width;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
 	public void add(Sprite other) {
 		for(int i = 0; i < data.length && i < other.data.length; i++) {
 			if(other.data[i] != 0) {

@@ -24,6 +24,7 @@ import apace.lib.Tiles;
 import apace.process.IProcessable;
 import apace.process.MultiProcess;
 import apace.process.ScheduledCall;
+import apace.process.SequenceProcess;
 import apace.utils.Direction;
 import apace.utils.Position;
 
@@ -44,7 +45,7 @@ public class Game implements IProcessable {
 		new Color(0, 0, 0),
 		new Color(29, 43, 83),
 		new Color(126, 37, 83),
-		new Color(0, 135, 83),
+		new Color(0, 135, 81),
 		new Color(171, 82, 54),
 		new Color(95, 87, 79),
 		new Color(194, 195, 199),
@@ -111,28 +112,36 @@ public class Game implements IProcessable {
 			anim = new ScheduledCall(() -> map.setTile(player.getPosition(), Tiles.BOMB));
 		}
 		if(anim != null) {
-			Logic.push(new ScheduledCall(() -> { map.updateVisibility(); Logic.push(doAi()); }));
+			Logic.push(new ScheduledCall(() -> { Logic.push(doAi(0)); }));
 			Logic.push(anim);
 		}
 	}
-	
-	public IProcessable doAi() {
+	private static final int maxPriority = 10;
+	public IProcessable doAi(int priority) {
+		map.updateVisibility();
 		List<IProcessable> aiTurns = new ArrayList<IProcessable>(map.getActorCount());
 		LinkedList<Actor> actors = Game.map.getActors();
 		HashMap<Position, Tile> tiles = Game.map.getTiles();
 		tiles.forEach((position, tile) -> {
 			if(tile instanceof ITurnTaker) {
-				IProcessable turn = ((ITurnTaker)tile).takeTurn(map, position);
-				aiTurns.add(turn);
+				if(((ITurnTaker) tile).getPriority() == priority) {
+					IProcessable turn = ((ITurnTaker)tile).takeTurn(map, position);
+					aiTurns.add(turn);
+				}
 			}
 		});
 		actors.forEach((actor) -> {
 			if(actor instanceof ITurnTaker) {
-				IProcessable turn = ((ITurnTaker)actor).takeTurn(Game.map, actor.getPosition());
-				aiTurns.add(turn);
+				if(((ITurnTaker) actor).getPriority() == priority) {
+					IProcessable turn = ((ITurnTaker)actor).takeTurn(Game.map, actor.getPosition());
+					aiTurns.add(turn);
+				}
 			}
 		});
-		MultiProcess aiTurn = new MultiProcess(aiTurns);
+		IProcessable aiTurn = new MultiProcess(aiTurns);
+		if(priority < maxPriority) {
+			aiTurn = new SequenceProcess(aiTurn, new ScheduledCall(() -> doAi(priority + 1)));
+		}
 		return aiTurn;
 	}
 

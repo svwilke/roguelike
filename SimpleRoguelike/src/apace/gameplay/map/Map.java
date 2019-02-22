@@ -153,6 +153,19 @@ public class Map {
 		return false;
 	}
 	
+	public boolean isLineOfSight(Position from, Position to) {
+		if(!isInBounds(from) || !isInBounds(to)) {
+			return false;
+		}
+		List<Position> line = from.lineTo(to);
+		for(Position q : line) {
+			if(isOpaque(q)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public boolean isOpaque(Position p) {
 		boolean actor = hasActor(p) && actors.get(p).isOpaque();
 		boolean tile = hasTile(p) && getTile(p).isOpaque();

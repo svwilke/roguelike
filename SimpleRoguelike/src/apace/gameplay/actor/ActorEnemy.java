@@ -14,14 +14,26 @@ public class ActorEnemy extends ActorLiving implements ITurnTaker {
 	private static Position lastTarget;
 	public static DistanceMap distanceMap;
 	
+	private int delay = 1;
+	private int lifetime = 0;
+	
 	public ActorEnemy(Sprite sprite, int maxHp, int atkValue) {
 		super(sprite);
 		setMaxHealth(maxHp);
 		setAttackValue(atkValue);
 		distanceMap = new DistanceMap(Game.map);
 	}
+	
+	public ActorEnemy setDelay(int delay) {
+		this.delay = delay;
+		return this;
+	}
 
 	public IProcessable takeTurn(Map map, Position position) {
+		lifetime++;
+		if(lifetime % delay > 0) {
+			return null;
+		}
 		if(lastTarget != Game.player.getPosition()) {
 			distanceMap.calculate(Game.player.getPosition());
 			lastTarget = Game.player.getPosition();
@@ -52,5 +64,10 @@ public class ActorEnemy extends ActorLiving implements ITurnTaker {
 	
 	private boolean isWalkableOrPlayer(Map map, ActorPlayer player, Position p) {
 		return map.isWalkable(p) || map.getActor(p) == player;
+	}
+
+	@Override
+	public int getPriority() {
+		return 0;
 	}
 }

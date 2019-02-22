@@ -1,7 +1,7 @@
 package apace.utils;
 
 public enum Direction {
-	LEFT, RIGHT, UP, DOWN, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT;
+	LEFT, RIGHT, UP, DOWN, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT, NONE;
 	
 	private int dx;
 	private int dy;
@@ -32,6 +32,9 @@ public enum Direction {
 		DOWN_RIGHT.dx = 1;
 		DOWN_RIGHT.dy = 1;
 		DOWN_RIGHT.opposite = UP_LEFT;
+		NONE.dx = 0;
+		NONE.dy = 0;
+		NONE.opposite = NONE;
 	}
 	
 	public static Direction get(int dx, int dy) {

@@ -26,6 +26,18 @@ public class AnimatedSprite extends Sprite {
 		};
 	}
 	
+	public Sprite getFrame(int frameIndex) {
+		if(frameIndex < 0 || frameIndex >= frames.length) {
+			throw new IllegalArgumentException("FrameIndex out of bounds.");
+		}
+		return frames[frameIndex];
+	}
+	
+	public Sprite getFrame(float animTime) {
+		int frame = (int)(animTime * frames.length - 1);
+		return getFrame(frame);
+	}
+	
 	@Override
 	public void render(Graphics2D g, Palette p, int x, int y) {
 		Sprite currentFrame = frames[(Game.TIME / CONSTANT) % frames.length];

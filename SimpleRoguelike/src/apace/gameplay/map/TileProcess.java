@@ -34,5 +34,10 @@ public class TileProcess extends Tile implements ITurnTaker {
 		}
 		return null;
 	}
+
+	@Override
+	public int getPriority() {
+		return 1;
+	}
 	
 }
