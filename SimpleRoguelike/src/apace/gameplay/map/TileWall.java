@@ -25,12 +25,12 @@ public class TileWall extends Tile {
 		//g.setColor(Color.white);
 		//g.drawString("" + bitfield, pos.getPixelX(), pos.getPixelY() + 5);
 		//Render.drawText(g, "" + bitfield, pos.getPixelX(), pos.getPixelY(), Color.white);
-		Position below = pos.down();
+		/*Position below = pos.down();
 		if(map.isWalkable(below)) {
 			p.swap(0, 1);
 			Sprites.HALFWALL.render(g, p, below.getPixelX(), below.getPixelY(), flipX, flipY);
 			p.swap(0, 0);
-		}
+		}*/
 	}
 
 	private int getSurrounding(Map map, Position pos) {

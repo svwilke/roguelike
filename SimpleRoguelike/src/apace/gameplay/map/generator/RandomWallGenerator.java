@@ -24,7 +24,7 @@ public class RandomWallGenerator implements IMapGenerator {
 					continue;
 				}
 				if((i + 1) % 2 == 0 && (j + 1) % 2 == 0 && Logic.random.nextInt(2) == 0) {
-					map.setTile(new Position(i, j), Logic.random.nextBoolean() ? Tiles.WALL : Tiles.HOLE);
+					map.setTile(new Position(i, j), Tiles.WALL);
 					continue;
 				}
 				map.setTile(new Position(i, j), Tiles.FLOOR);
@@ -42,6 +42,16 @@ public class RandomWallGenerator implements IMapGenerator {
 					}
 				}*/
 				
+			}
+		}
+		Position ptl = new Position(1, 1).add(Position.random(width - 2, height - 2));
+		Position pbr = new Position(ptl.getX(), ptl.getY()).add(Position.random(width - 2 - ptl.getX(), height - 2 - ptl.getY()));
+		for(int i = ptl.getX(); i < pbr.getX(); i++) {
+			for(int j = ptl.getY(); j < pbr.getY(); j++) {
+				Position p = new Position(i, j);
+				if(map.getTile(p) == Tiles.FLOOR) {
+					map.setTile(p, Tiles.HOLE);
+				}
 			}
 		}
 		Position pUp = new Position(1, 1).add(Position.random(width - 2, height - 2));
