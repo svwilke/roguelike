@@ -1,12 +1,18 @@
 package apace.drawing;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import apace.core.Game;
 
 public class Sprite {
 	
 	private int width;
 	private int height;
 	private int[] data;
+	
+	private BufferedImage bufferedNormalImage;
+	private BufferedImage bufferedNormalImageFlipX;
 	
 	public Sprite(int width, int height) {
 		this.width = width;
@@ -18,6 +24,7 @@ public class Sprite {
 		this.width = width;
 		this.height = height;
 		this.data = data;
+		prerender();
 	}
 	
 	public Sprite(int[][] data) {
@@ -27,6 +34,22 @@ public class Sprite {
 				this.data[x + (y * width)] = data[y][x];
 			}
 		}
+		prerender();
+	}
+	
+	public void prerender() {
+		bufferedNormalImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		bufferedNormalImageFlipX = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = bufferedNormalImage.createGraphics();
+		Graphics2D gFlip = bufferedNormalImageFlipX.createGraphics();
+			for(int i = 0; i < width; i++) {
+				for(int j = 0; j < height; j++) {
+					g.setColor(Game.palette.getColor(data[i + j * width]));
+					g.drawLine(i, j, i, j);
+					gFlip.setColor(Game.palette.getColor(data[width - 1 - i + j * width]));
+					gFlip.drawLine(i, j, i, j);
+				}
+			}
 	}
 	
 	public int getWidth() {
@@ -59,6 +82,8 @@ public class Sprite {
 	}
 	
 	public void render(Graphics2D g, Palette p, int x, int y, boolean flipX, boolean flipY) {
+		g.drawImage(flipX ? bufferedNormalImageFlipX : bufferedNormalImage, x, y, null);
+		/*
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
 				int sx = flipX ? (width - 1 - i) : i;
@@ -67,6 +92,7 @@ public class Sprite {
 				g.drawLine(x + i, y + j, x + i, y + j);
 			}
 		}
+		*/
 	}
 	
 	@Override
