@@ -6,6 +6,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -77,19 +78,25 @@ public class SimpleRoguelike extends JPanel {
 		gameThread.start();
 	}
 
+	public static BufferedImage buffer = new BufferedImage(WIDTH / Reference.SCALING, HEIGHT / Reference.SCALING, BufferedImage.TYPE_INT_ARGB);
+	private Graphics2D gBuffer = buffer.createGraphics();
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setFont(font);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		gBuffer.setColor(Color.BLACK);
+		gBuffer.fillRect(0, 0, buffer.getWidth(), buffer.getHeight());
+		Render.render(gBuffer);
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform scaleTransform = new AffineTransform();
 		
 		scaleTransform.scale(Reference.SCALING, Reference.SCALING);
 		scaleTransform.translate(0.5, 0.5);
 		g2.setTransform(scaleTransform);
-		Render.render(g2);
+		g2.drawImage(buffer, 0, 0, null);
+		//Render.render(g2);
 		
 		//scaleTransform.setToIdentity();
 		//scaleTransform.scale(Reference.SCALING, Reference.SCALING);
