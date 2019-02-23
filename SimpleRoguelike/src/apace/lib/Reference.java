@@ -11,6 +11,6 @@ public class Reference {
     public static final int HEIGHT = 600;
     public static int SCALING = 3;
     
-    public static final String FONT_FILE = "/res/pico-8w.ttf";
+    public static final String FONT_FILE = "/pico-8w.ttf";
     public static final int TILE_SIZE = 8;
 }
