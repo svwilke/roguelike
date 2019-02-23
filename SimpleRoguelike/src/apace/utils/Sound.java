@@ -13,7 +13,7 @@ public class Sound {
 	private Clip clip;
 	
 	public Sound(String fileName) {
-		try(AudioInputStream in = AudioSystem.getAudioInputStream(ClassLoader.getSystemClassLoader().getResource("res/sfx/" + fileName))){
+		try(AudioInputStream in = AudioSystem.getAudioInputStream(Sound.class.getResource("/sfx/" + fileName))){
 			clip = AudioSystem.getClip();
 			clip.open(in);
 		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {

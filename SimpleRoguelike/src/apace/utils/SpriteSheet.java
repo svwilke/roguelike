@@ -20,7 +20,7 @@ public class SpriteSheet {
 
 	public SpriteSheet(String fileName, Palette palette) {
 		try {
-			BufferedImage image = ImageIO.read(Sprites.class.getResource("/res/images/" + fileName));
+			BufferedImage image = ImageIO.read(Sprites.class.getResource("/images/" + fileName));
 			int w = image.getWidth();
 			int h = image.getHeight();
 			
