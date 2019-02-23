@@ -26,7 +26,7 @@ public class Sprite {
 		this.width = width;
 		this.height = height;
 		this.data = data;
-		prerender();
+		//prerender();
 	}
 	
 	public Sprite(int[][] data) {
@@ -36,7 +36,7 @@ public class Sprite {
 				this.data[x + (y * width)] = data[y][x];
 			}
 		}
-		prerender();
+		//prerender();
 	}
 	
 	public void prerender() {
