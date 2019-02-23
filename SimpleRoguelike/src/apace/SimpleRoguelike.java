@@ -86,6 +86,7 @@ public class SimpleRoguelike extends JPanel {
 		g.setFont(font);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		gBuffer.setFont(font);
 		gBuffer.setColor(Color.BLACK);
 		gBuffer.fillRect(0, 0, buffer.getWidth(), buffer.getHeight());
 		Render.render(gBuffer);
