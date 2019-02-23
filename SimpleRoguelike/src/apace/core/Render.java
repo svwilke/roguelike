@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 
+import apace.SimpleRoguelike;
+import apace.drawing.Sprite;
 import apace.drawing.Window;
 import apace.lib.Reference;
 import apace.utils.Direction;
@@ -45,6 +47,16 @@ public class Render {
     
     public static void removeWindow(Window window) {
     	windowsToRemove.add(window);
+    }
+    
+    public static void drawSprite(Sprite sprite, int x, int y, boolean flipX, boolean flipY) {
+    	for(int i = 0; i < sprite.getWidth(); i++) {
+    		for(int j = 0; j < sprite.getHeight(); j++) {
+    			int ix = flipX ? sprite.getWidth() - 1 - i : i;
+    			int iy = flipY ? sprite.getHeight() - 1 - j : j;
+    			SimpleRoguelike.buffer.setRGB(x + i, y + j, Game.palette.getColor(sprite.getPixel(ix, iy)).getRGB());
+    		}
+    	}
     }
     
     public static void drawWindow(Graphics2D g, int x, int y, int w, int h) {

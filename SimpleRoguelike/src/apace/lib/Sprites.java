@@ -102,7 +102,6 @@ public class Sprites {
 						data[x + (y * w)] = 0;
 					}
 				}
-				
 			}
 			String s = "";
 			for(int i = 0; i < data.length; i++) {

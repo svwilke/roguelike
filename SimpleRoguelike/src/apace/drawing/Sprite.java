@@ -1,9 +1,11 @@
 package apace.drawing;
 
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import apace.core.Game;
+import apace.core.Render;
 
 public class Sprite {
 	
@@ -24,7 +26,7 @@ public class Sprite {
 		this.width = width;
 		this.height = height;
 		this.data = data;
-		prerender();
+		//prerender();
 	}
 	
 	public Sprite(int[][] data) {
@@ -34,7 +36,7 @@ public class Sprite {
 				this.data[x + (y * width)] = data[y][x];
 			}
 		}
-		prerender();
+		//prerender();
 	}
 	
 	public void prerender() {
@@ -42,14 +44,16 @@ public class Sprite {
 		bufferedNormalImageFlipX = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = bufferedNormalImage.createGraphics();
 		Graphics2D gFlip = bufferedNormalImageFlipX.createGraphics();
-			for(int i = 0; i < width; i++) {
-				for(int j = 0; j < height; j++) {
-					g.setColor(Game.palette.getColor(data[i + j * width]));
-					g.drawLine(i, j, i, j);
-					gFlip.setColor(Game.palette.getColor(data[width - 1 - i + j * width]));
-					gFlip.drawLine(i, j, i, j);
-				}
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		gFlip.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		for(int i = 0; i < width; i++) {
+			for(int j = 0; j < height; j++) {
+				g.setColor(Game.palette.getColor(data[i + j * width]));
+				g.drawLine(i, j, i, j);
+				gFlip.setColor(Game.palette.getColor(data[width - 1 - i + j * width]));
+				gFlip.drawLine(i, j, i, j);
 			}
+		}
 	}
 	
 	public int getWidth() {
@@ -68,6 +72,10 @@ public class Sprite {
 		}
 	}
 	
+	public int getPixel(int x, int y) {
+		return data[x + y * width];
+	}
+	
 	public Sprite copy() {
 		return new Sprite(data.clone(), width, height);
 	}
@@ -82,7 +90,9 @@ public class Sprite {
 	}
 	
 	public void render(Graphics2D g, Palette p, int x, int y, boolean flipX, boolean flipY) {
-		g.drawImage(flipX ? bufferedNormalImageFlipX : bufferedNormalImage, x, y, null);
+		//g.drawImage(flipX ? bufferedNormalImageFlipX : bufferedNormalImage, x, y, null);
+		//g.drawImage(bufferedNormalImage, x, y, x + width - 1, y + height - 1, flipX ? width: 0, flipY ? height: 0, flipX ? 0 : width, flipY ? 0 : height, null);
+		Render.drawSprite(this, x, y, flipX, flipY);
 		/*
 		for(int i = 0; i < width; i++) {
 			for(int j = 0; j < height; j++) {
