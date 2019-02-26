@@ -64,10 +64,20 @@ public class Render {
     }
     
     public static void drawWindow(Graphics2D g, int x, int y, int w, int h, Color bg, Color fg) {
-    	g.setColor(bg);
-    	g.fillRect(x, y, w, h);
-    	g.setColor(fg);
-    	g.drawRect(x + 1, y + 1, w - 2, h - 2);
+    	int fgc = fg.getRGB();
+    	int bgc = bg.getRGB();
+    	for(int i = Math.max(0, x); i < Math.min(SimpleRoguelike.buffer.getWidth(), x + w); i++) {
+    		for(int j = Math.max(0, y); j < Math.min(SimpleRoguelike.buffer.getHeight(), y + h); j++) {
+    			int c = bgc;
+    			if((i == x + 1 || i == x + w - 2) && !(j == y || j == y + h - 1)) {
+    				c = fgc;
+    			}
+    			if(!(i == x || i == x + w - 1) && (j == y + 1 || j == y + h - 2)) {
+    				c = fgc;
+    			}
+    			SimpleRoguelike.buffer.setRGB(i, j, c);
+    		}
+    	}
     }
     
     public static void drawText(Graphics2D g, String text, int x, int y, Color c) {

@@ -79,6 +79,7 @@ public class Game implements IProcessable {
     }
     
     private Window currentWindow;
+    private Actor currentActor;
     
     public static void startGame() {
         Game.TIME = 0;
@@ -118,28 +119,39 @@ public class Game implements IProcessable {
 			Logic.push(anim);
 		}
 		
-		if(mouseHandler.isButtonClickedOnce(MouseHandler.PRIMARY)) {
-			int tx = mouseHandler.mouseX / Reference.SCALING / (Reference.TILE_SIZE);
-			int ty = mouseHandler.mouseY / Reference.SCALING / (Reference.TILE_SIZE);
-			boolean newWindow = false;
+		//if(mouseHandler.isButtonClickedOnce(MouseHandler.PRIMARY)) {
+			int px = mouseHandler.mouseX / Reference.SCALING;
+			int py = mouseHandler.mouseY / Reference.SCALING;
+			int tx = px / (Reference.TILE_SIZE);
+			int ty = py / (Reference.TILE_SIZE);
+			boolean hasWindow = false;
 			if(tx < map.getWidth() && ty < map.getHeight()) {
 				Position tMouse = new Position(tx, ty);
 				if(map.hasActor(tMouse)) {
 					Actor a = map.getActor(tMouse);
 					if(a instanceof ActorLiving) {
-						if(currentWindow != null) {
-							currentWindow.close();
+						if(a != currentActor) {
+							if(currentWindow != null) {
+								currentWindow.close();
+							}
+							currentWindow = new WindowActor(Game.map.getWidth(), 4, (ActorLiving)a);
+							currentWindow.setPosition(px + 1, py - Reference.TILE_SIZE * 3);
+							currentWindow.show();
+							hasWindow = true;
+							currentActor = a;
+						} else {
+							currentWindow.setPosition(px + 1, py - Reference.TILE_SIZE * 3);
+							hasWindow = true;
 						}
+						
 					}
-					currentWindow = new WindowActor(Game.map.getWidth(), 4, (ActorLiving)a);
-					currentWindow.show();
-					newWindow = true;
 				}
 			}
-			if(!newWindow && currentWindow != null) {
+			if(currentWindow != null && !hasWindow) {
 				currentWindow.close();
+				currentActor = null;
 			}
-		}
+		//}
 	}
 	private static final int maxPriority = 10;
 	public IProcessable doAi(int priority) {

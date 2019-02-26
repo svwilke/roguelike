@@ -90,19 +90,20 @@ public class SimpleRoguelike extends JPanel {
 		gBuffer.setColor(Color.BLACK);
 		gBuffer.fillRect(0, 0, buffer.getWidth(), buffer.getHeight());
 		Render.render(gBuffer);
+		
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform scaleTransform = new AffineTransform();
-		
 		scaleTransform.scale(Reference.SCALING, Reference.SCALING);
 		scaleTransform.translate(0.5, 0.5);
 		g2.setTransform(scaleTransform);
+
+		Render.renderWindows(gBuffer);
 		g2.drawImage(buffer, 0, 0, null);
 		//Render.render(g2);
 		
 		//scaleTransform.setToIdentity();
 		//scaleTransform.scale(Reference.SCALING, Reference.SCALING);
 		//g2.setTransform(scaleTransform);
-		Render.renderWindows(g2);
 	}
 
 	public static void main(String[] args) {

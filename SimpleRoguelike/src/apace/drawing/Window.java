@@ -41,6 +41,11 @@ public class Window {
 		this.lines = lines;
 	}
 	
+	public void setPosition(int px, int py) {
+		this.px = px;
+		this.py = py;
+	}
+	
 	public void setTextColor(int paletteIndex) {
 		setTextColor(Game.palette.getColor(paletteIndex));
 	}
