@@ -8,5 +8,6 @@ public class ActorPlayer extends ActorLiving {
 		super(Sprites.PLAYER);
 		setAttackValue(1);
 		setMaxHealth(5);
+		setDisplayName("Player");
 	}
 }

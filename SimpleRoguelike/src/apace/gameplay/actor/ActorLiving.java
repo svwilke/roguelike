@@ -119,4 +119,10 @@ public class ActorLiving extends Actor implements IInteractable, Cloneable {
 			throw new RuntimeException("Clone function of ActorLiving invalid. CloneNotSupportedException.");
 		}
 	}
+	
+	@Override
+	public ActorLiving setDisplayName(String name) {
+		super.setDisplayName(name);
+		return this;
+	}
 }

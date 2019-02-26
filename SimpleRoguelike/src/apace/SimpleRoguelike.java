@@ -122,6 +122,7 @@ public class SimpleRoguelike extends JPanel {
 				panel.addKeyListener(keyHandler);
                 panel.addMouseListener(mouseHandler);
                 panel.addMouseMotionListener(mouseHandler);
+                panel.grabFocus();
 			}
 		});
 	}

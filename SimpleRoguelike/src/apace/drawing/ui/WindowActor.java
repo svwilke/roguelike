@@ -5,7 +5,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import apace.core.Game;
-import apace.core.Render;
 import apace.drawing.Palette;
 import apace.drawing.Sprite;
 import apace.drawing.Window;
@@ -44,14 +43,19 @@ public class WindowActor extends Window implements Observer {
 		attackValue = actor.getProperty("attackValue");
 		attackValue.addObserver(this);
 		sprite = actor.getSprite();
-		name = actor.getClass().getSimpleName();
+		name = actor.getDisplayName();
 		update(null, null);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		if(health != null && maxHealth != null && name != null) {
-			this.setText(String.format("   %s\n« %d/%d ATK %d", name, health.getValue(), maxHealth.getValue(), attackValue.getValue()));
+			if(health.getValue() > 0) {
+				this.setText(String.format("   %s\n« %d/%d ATK %d", name, health.getValue(), maxHealth.getValue(), attackValue.getValue()));
+			} else {
+				this.setText(String.format("   %s\nDEAD!", name));
+			}
+			
 		}
 	}
 	

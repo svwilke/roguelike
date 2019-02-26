@@ -17,9 +17,19 @@ import apace.utils.Position;
 public class Actor extends Tile {
 	
 	protected Position position;
+	protected String displayName = "Actor";
 	
 	public Actor(Sprite sprite, boolean walkable, boolean opaque) {
 		super(sprite, walkable, opaque);
+	}
+	
+	public Actor setDisplayName(String name) {
+		displayName = name;
+		return this;
+	}
+	
+	public String getDisplayName() {
+		return displayName;
 	}
 	
 	public Position getPosition() {
