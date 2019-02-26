@@ -110,17 +110,18 @@ public class SimpleRoguelike extends JPanel {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame frame = new JFrame(Reference.GAME_TITLE + " " + Reference.GAME_VERSION);
-				//frame.setLocation(-12, 10);
+				//frame.setLocation(100, 100);
 				frame.setLocationByPlatform(false);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setContentPane(new SimpleRoguelike());
+				JPanel panel = new SimpleRoguelike();
+				frame.setContentPane(panel);
 				//frame.setUndecorated(true);
 				frame.setResizable(false);
 				frame.pack();
 				frame.setVisible(true);
-				frame.addKeyListener(keyHandler);
-                frame.addMouseListener(mouseHandler);
-                frame.addMouseMotionListener(mouseHandler);
+				panel.addKeyListener(keyHandler);
+                panel.addMouseListener(mouseHandler);
+                panel.addMouseMotionListener(mouseHandler);
 			}
 		});
 	}

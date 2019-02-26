@@ -9,10 +9,10 @@ import java.util.List;
 import apace.SimpleRoguelike;
 import apace.drawing.Palette;
 import apace.drawing.Window;
-import apace.drawing.ui.WindowHealth;
+import apace.drawing.ui.WindowActor;
 import apace.gameplay.ITurnTaker;
 import apace.gameplay.actor.Actor;
-import apace.gameplay.actor.ActorEnemy;
+import apace.gameplay.actor.ActorLiving;
 import apace.gameplay.actor.ActorPlayer;
 import apace.gameplay.map.Map;
 import apace.gameplay.map.Tile;
@@ -78,12 +78,14 @@ public class Game implements IProcessable {
     	//map.addActor(pDown.up().up(), new ActorEnemy(Sprites.SLIME));
     }
     
+    private Window currentWindow;
+    
     public static void startGame() {
         Game.TIME = 0;
         shouldRender = true;
         shouldUpdate = true;
         player = new ActorPlayer();
-        Window ui = new WindowHealth(Game.map.getWidth(), 1, player);
+        Window ui = new WindowActor(Game.map.getWidth(), 1, player);
 		ui.show();
         Logic.push(new Game());
     }
@@ -114,6 +116,29 @@ public class Game implements IProcessable {
 		if(anim != null) {
 			Logic.push(new ScheduledCall(() -> { Logic.push(doAi(0)); }));
 			Logic.push(anim);
+		}
+		
+		if(mouseHandler.isButtonClickedOnce(MouseHandler.PRIMARY)) {
+			int tx = mouseHandler.mouseX / Reference.SCALING / (Reference.TILE_SIZE);
+			int ty = mouseHandler.mouseY / Reference.SCALING / (Reference.TILE_SIZE);
+			boolean newWindow = false;
+			if(tx < map.getWidth() && ty < map.getHeight()) {
+				Position tMouse = new Position(tx, ty);
+				if(map.hasActor(tMouse)) {
+					Actor a = map.getActor(tMouse);
+					if(a instanceof ActorLiving) {
+						if(currentWindow != null) {
+							currentWindow.close();
+						}
+					}
+					currentWindow = new WindowActor(Game.map.getWidth(), 4, (ActorLiving)a);
+					currentWindow.show();
+					newWindow = true;
+				}
+			}
+			if(!newWindow && currentWindow != null) {
+				currentWindow.close();
+			}
 		}
 	}
 	private static final int maxPriority = 10;

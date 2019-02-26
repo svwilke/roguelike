@@ -73,6 +73,10 @@ public class Tile {
 		this.flipX = flipX;
 	}
 	
+	public Sprite getSprite() {
+		return this.sprite;
+	}
+	
 	public void render(Graphics2D g, Map map, Palette p, Position pos) {
 		/*if(clearBackground)
 			p.swap(0, 1);

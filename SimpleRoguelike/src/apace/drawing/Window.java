@@ -65,6 +65,10 @@ public class Window {
 		lifetime = 0;
 	}
 	
+	public boolean isClosing() {
+		return lifetime < 0;
+	}
+	
 	public void render(Graphics2D g) {
 		if(lifetime < Integer.MAX_VALUE) {
 			lifetime--;
