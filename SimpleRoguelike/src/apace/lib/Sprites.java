@@ -21,6 +21,7 @@ public class Sprites {
 	public static Sprite[] HOLE;
 	public static Sprite HALFWALL;
 	public static Sprite FLOOR;
+	public static Sprite CARPET;
 	public static Sprite PLAYER_0;
 	public static Sprite PLAYER_1;
 	public static Sprite PLAYER_2;
@@ -28,6 +29,7 @@ public class Sprites {
 	public static AnimatedSprite SLIME_SMALL;
 	public static AnimatedSprite SLIME_LARGE;
 	public static AnimatedSprite GROO;
+	public static AnimatedSprite TORCH;
 	public static Sprite DOOR;
 	public static Sprite CHEST_CLOSED_LARGE;
 	public static Sprite CHEST_OPEN_LARGE;
@@ -36,6 +38,7 @@ public class Sprites {
 	public static Sprite STAIRS_DOWN;
 	public static Sprite STAIRS_UP;
 	public static Sprite VASE_SMALL;
+	public static Sprite VASE_LARGE;
 	public static Sprite BOMB_0;
 	public static Sprite BOMB_1;
 	public static Sprite BOMB_2;
@@ -43,15 +46,17 @@ public class Sprites {
 	public static AnimatedSprite EXPLOSION;
 	public static Sprite[] WALLS;
 	
-	private static SpriteSheet sheet = new SpriteSheet("sprites2.png", Game.palette);
-	private static SpriteSheet actorSheet = new SpriteSheet("actors.png", Game.palette);
-	private static SpriteSheet wallSheet = new SpriteSheet("walls5.png", Game.palette);
-	private static SpriteSheet holeSheet = new SpriteSheet("hole.png", Game.palette);
+	private static SpriteSheet sheet = new SpriteSheet("sprites.png", Game.palette);
+	private static SpriteSheet actorSheet = new SpriteSheet("actors2.png", Game.palette);
+	private static SpriteSheet wallSheet = new SpriteSheet("walls.png", Game.palette);
+	private static SpriteSheet holeSheet = new SpriteSheet("hole2.png", Game.palette);
 	
 	static {
 		WALL = sheet.getSprite(4, 0);
 		HALFWALL = wallSheet.getSprite(5, 0, 8, 4);
+		System.out.println(HALFWALL.toString());
 		FLOOR = sheet.getSprite(5, 0);
+		CARPET = sheet.getSprite(1, 1);
 		PLAYER = new AnimatedSprite(actorSheet, 0, 0);
 		SLIME_SMALL = new AnimatedSprite(actorSheet, 0, 2);
 		SLIME_LARGE = new AnimatedSprite(actorSheet, 0, 1);
@@ -64,7 +69,9 @@ public class Sprites {
 		STAIRS_DOWN = sheet.getSprite(2, 0);
 		STAIRS_UP = sheet.getSprite(3, 0);
 		VASE_SMALL = sheet.getSprite(5, 1);
+		VASE_LARGE = sheet.getSprite(6, 1);
 		WALLS = wallSheet.createAutotile();
+		TORCH = new AnimatedSprite(sheet.getSprite(0, 0), sheet.getSprite(1, 0));
 		BOMB_0 = new AnimatedSprite(sheet.getSprite(0, 3), sheet.getSprite(4, 3));
 		BOMB_1 = new AnimatedSprite(sheet.getSprite(1, 3), sheet.getSprite(5, 3));
 		BOMB_2 = new AnimatedSprite(sheet.getSprite(2, 3), sheet.getSprite(6, 3));

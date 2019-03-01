@@ -39,6 +39,7 @@ public class Tiles {
 	public static TileDoor DOOR = new TileDoor();
 	public static Tile VASE_SMALL = new Tile(Sprites.VASE_SMALL, false, false);
 	public static TileHole HOLE = new TileHole();
+	public static Tile CARPET = new Tile(Sprites.CARPET, true, false, false);
 	public static Tile BOMB = new TileProcess(false, false, new ITurnTaker() {
 
 		@Override
