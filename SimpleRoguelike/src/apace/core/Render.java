@@ -64,7 +64,8 @@ public class Render {
     						(int)((float)cn.getGreen() * a + (float)cp.getGreen() * ia),
     						(int)((float)cn.getBlue() * a + (float)cp.getBlue() * ia));
     			}
-    			SimpleRoguelike.buffer.setRGB(x + i, y + j, cn.getRGB());
+    			if(x + i >= 0 && x + i < SimpleRoguelike.buffer.getWidth() && y + j >= 0 && y + j < SimpleRoguelike.buffer.getHeight())
+    				SimpleRoguelike.buffer.setRGB(x + i, y + j, cn.getRGB());
     		}
     	}
     }
