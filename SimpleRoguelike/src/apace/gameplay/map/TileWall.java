@@ -32,8 +32,8 @@ public class TileWall extends Tile {
 			p.swap(0, 0);
 		}*/
 	}
-
-	private int getSurrounding(Map map, Position pos) {
+	
+	public int getSurrounding(Map map, Position pos) {
 		int b = 0;
 		int add = 128;
 		for(Direction d : Direction.values()) {

@@ -10,7 +10,7 @@ import apace.core.Game;
 import apace.gameplay.IInteractable;
 import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
-import apace.gameplay.map.generator.RandomWallGenerator;
+import apace.gameplay.map.generator.RoomGenerator;
 import apace.utils.Direction;
 import apace.utils.Position;
 
@@ -38,8 +38,8 @@ public class Map {
 	public void generate(int x, int y) {
 		clear();
 		System.out.println("Creating map (" + width + ", " + height + ").");
-		new RandomWallGenerator().generate(this, x, y, 0);
-		//new RoomGenerator().generate(this, x, y, 0);
+		//new RandomWallGenerator().generate(this, x, y, 0);
+		new RoomGenerator().generate(this, x, y, 0);
 	}
 	
 	public int getWidth() {
@@ -213,6 +213,20 @@ public class Map {
 		}); 
 		delayedDraws.forEach((actor) -> actor.render(g, this, Game.palette, actor.getPosition()));
 		// ^ actor.getPosition instead of map key position might cause problems
+	}
+	
+	public int getSurrounding(Position pos) {
+		int b = 0;
+		int add = 128;
+		for(Direction d : Direction.values()) {
+			int same = 1;
+			if(isInBounds(d.from(pos)) && !(getTile(d.from(pos)) instanceof TileWall)) {
+				same = 0;
+			}
+			b += same * add;
+			add /= 2;
+		}
+		return b;
 	}
 
 	public int getActorCount() {
