@@ -54,7 +54,17 @@ public class Render {
     		for(int j = 0; j < sprite.getHeight(); j++) {
     			int ix = flipX ? sprite.getWidth() - 1 - i : i;
     			int iy = flipY ? sprite.getHeight() - 1 - j : j;
-    			SimpleRoguelike.buffer.setRGB(x + i, y + j, Game.palette.getColor(sprite.getPixel(ix, iy)).getRGB());
+    			Color cn = Game.palette.getColor(sprite.getPixel(ix, iy));
+    			if(cn.getAlpha() < 255) {
+    				float a = (float)cn.getAlpha() / 255f;
+    				float ia = 1f - a;
+    				Color cp = new Color(SimpleRoguelike.buffer.getRGB(x + i, y + j));
+    				cn = new Color(
+    						(int)((float)cn.getRed() * a + (float)cp.getRed() * ia),
+    						(int)((float)cn.getGreen() * a + (float)cp.getGreen() * ia),
+    						(int)((float)cn.getBlue() * a + (float)cp.getBlue() * ia));
+    			}
+    			SimpleRoguelike.buffer.setRGB(x + i, y + j, cn.getRGB());
     		}
     	}
     }
