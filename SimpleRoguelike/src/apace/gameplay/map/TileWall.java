@@ -17,7 +17,6 @@ public class TileWall extends Tile {
 	public void render(Graphics2D g, Map map, Palette p, Position pos) {
 		int bitfield = getSurrounding(map, pos);
 		if(Sprites.WALLS[bitfield] != null) {
-			
 			super.render(g, p, Sprites.WALLS[bitfield], pos);
 		} else {
 			super.render(g, map, p, pos);
@@ -25,12 +24,14 @@ public class TileWall extends Tile {
 		//g.setColor(Color.white);
 		//g.drawString("" + bitfield, pos.getPixelX(), pos.getPixelY() + 5);
 		//Render.drawText(g, "" + bitfield, pos.getPixelX(), pos.getPixelY(), Color.white);
-		/*Position below = pos.down();
+		Position below = pos.down();
 		if(map.isWalkable(below)) {
-			p.swap(0, 1);
-			Sprites.HALFWALL.render(g, p, below.getPixelX(), below.getPixelY(), flipX, flipY);
-			p.swap(0, 0);
-		}*/
+			//p.swap(Palette.CLEAR, Palette.BLACK);
+			//System.out.println("tru");
+			super.render(g, p, Sprites.HALFWALL, below);
+			//Sprites.CHEST_CLOSED_LARGE.render(g, p, below.getPixelX(), below.getPixelY(), flipX, flipY);
+			//p.swap(Palette.CLEAR, Palette.CLEAR);
+		}
 	}
 	
 	public int getSurrounding(Map map, Position pos) {
