@@ -15,4 +15,21 @@ public class Flags {
 		int f1mask = flag1 | mask;
 		return ((flag0 | mask) & f1mask) == f1mask;
 	}
+	
+	public static boolean anycomp(int flag0, int[] flags) {
+		for(int i = 0; i < flags.length; i++) {
+			if(flag0 == flags[i]) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean anycomp(int flag0, int[] flags, int[] masks) {
+		for(int i = 0; i < flags.length; i++) {
+			if((flag0 | masks[i]) == (flags[i] | masks[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
