@@ -33,12 +33,14 @@ public class StairGenerator implements IMapGenerator {
 	};
 	@Override
 	public void generate(Map map, int startX, int startY, int level) {
+		Position startPos = new Position(startX, startY);
 		ArrayList<Position> candidates = new ArrayList<>();
 		for(int x = 0; x < map.getWidth(); x++) {
 			for(int y = 0; y < map.getHeight(); y++) {
 				Position p = new Position(x, y);
 				if(map.getTile(p) == Tiles.DOOR && Flags.anycomp(map.getSurrounding(p), flags, masks)) {
-					candidates.add(p);
+					if(!map.isLineOfSight(startPos, p))
+						candidates.add(p);
 				}
 			}
 		}
@@ -54,7 +56,8 @@ public class StairGenerator implements IMapGenerator {
 				for(int y = 0; y < map.getHeight(); y++) {
 					Position p = new Position(x, y);
 					if(map.getTile(p) == Tiles.FLOOR && Flags.anycomp(map.getSurrounding(p), fallbackFlags)) {
-						candidates.add(p);
+						if(!map.isLineOfSight(startPos, p))
+							candidates.add(p);
 					}
 				}
 			}

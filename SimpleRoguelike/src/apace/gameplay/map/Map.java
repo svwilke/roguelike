@@ -12,9 +12,9 @@ import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
 import apace.gameplay.map.generator.DoorGenerator;
 import apace.gameplay.map.generator.HallwayGenerator;
+import apace.gameplay.map.generator.RoomDecorator;
 import apace.gameplay.map.generator.RoomGenerator;
 import apace.gameplay.map.generator.SequenceGenerator;
-import apace.gameplay.map.generator.ShortcutGenerator;
 import apace.gameplay.map.generator.StairGenerator;
 import apace.gameplay.map.generator.StubDegenerator;
 import apace.utils.Direction;
@@ -46,7 +46,15 @@ public class Map {
 		isGenerating = true;
 		clear();
 		System.out.println("Creating map (" + width + ", " + height + ").");
-		new SequenceGenerator(new RoomGenerator(), new HallwayGenerator(), new DoorGenerator(), /*new ShortcutGenerator(),*/ new StubDegenerator(), new StairGenerator()).generate(this, x, y, 0);
+		new SequenceGenerator(
+				new RoomGenerator(),
+				new HallwayGenerator(),
+				new DoorGenerator(),
+//				new ShortcutGenerator(),
+				new StubDegenerator(),
+				new StairGenerator(),
+				new RoomDecorator()
+		).generate(this, x, y, 0);
 		isGenerating = false;
 	}
 	
@@ -168,7 +176,7 @@ public class Map {
 		List<Position> line = from.lineTo(to);
 		for(Position q : line) {
 			if(isOpaque(q)) {
-				return false;
+				return q.equals(to);
 			}
 		}
 		return true;

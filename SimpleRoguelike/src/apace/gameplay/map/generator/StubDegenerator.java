@@ -27,7 +27,6 @@ public class StubDegenerator implements IMapGenerator {
 				Integer.parseInt("00000011", 2)
 		};
 		List<Position> candidates = new LinkedList<>();
-		boolean first = false;
 		do {
 			for(Position p : candidates) {
 				map.setTile(p, Tiles.WALL);
@@ -40,10 +39,6 @@ public class StubDegenerator implements IMapGenerator {
 						candidates.add(p);
 					}
 				}
-			}
-			if(!first) {
-				System.out.println("First candidates = " + candidates.size());
-				first = true;
 			}
 			//if(Logic.random.nextInt(10) == 0) {
 			//	break;

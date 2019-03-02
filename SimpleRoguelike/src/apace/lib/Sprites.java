@@ -54,7 +54,6 @@ public class Sprites {
 	static {
 		WALL = sheet.getSprite(4, 0);
 		HALFWALL = wallSheet.getSprite(5, 0, 8, 4);
-		System.out.println(HALFWALL.toString());
 		FLOOR = sheet.getSprite(5, 0);
 		CARPET = sheet.getSprite(1, 1);
 		PLAYER = new AnimatedSprite(actorSheet, 0, 0);
