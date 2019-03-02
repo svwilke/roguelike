@@ -26,19 +26,32 @@ public class RoomGenerator implements IMapGenerator {
 			}
 		}
 		int maxSize = 6;
-		int minSize = 3;
+		int minSize = 2;
+		int maxRooms = 5;
 		ArrayList<Position> candidates = new ArrayList<Position>(w * h);
-		for(int r = 0; r < 30; r++) {
+		for(int r = 0; r < 10; r++) {
 			int rw = Logic.random.nextInt(maxSize - minSize) + minSize;
 			int rh = Logic.random.nextInt(maxSize - minSize) + minSize;
 			Box currentRoom = new Box(0, 0, rw, rh);
 			candidates.clear();
-			for(int x = 0; x < w - rw; x++) {
-				for(int y = 0; y < h - rh; y++) {
-					currentRoom.x = x;
-					currentRoom.y = y;
-					if(available(currentRoom, map)) {
-						candidates.add(new Position(x, y));
+			if(r == 0) {
+				for(int x = Math.max(0, startX - rw); x < Math.min(w - rw, startX + 1); x++) {
+					for(int y = Math.max(0, startY - rh); y < Math.min(h - rh, startY + 1); y++) {
+						currentRoom.x = x;
+						currentRoom.y = y;
+						if(available(currentRoom, map)) {
+							candidates.add(new Position(x, y));
+						}
+					}
+				}
+			} else {
+				for(int x = 0; x < w - rw; x++) {
+					for(int y = 0; y < h - rh; y++) {
+						currentRoom.x = x;
+						currentRoom.y = y;
+						if(available(currentRoom, map)) {
+							candidates.add(new Position(x, y));
+						}
 					}
 				}
 			}
@@ -55,9 +68,12 @@ public class RoomGenerator implements IMapGenerator {
 					}
 				}
 				rooms.add(currentRoom);
+				maxRooms--;
+				if(maxRooms <= 0) {
+					break;
+				}
 			}
 		}
-		map.setTile(new Position(startX, startY), Tiles.STAIRS_DOWN);
 	}
 	
 	private Position select(ArrayList<Position> positions) {

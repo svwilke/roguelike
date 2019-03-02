@@ -14,6 +14,8 @@ import apace.gameplay.map.generator.DoorGenerator;
 import apace.gameplay.map.generator.HallwayGenerator;
 import apace.gameplay.map.generator.RoomGenerator;
 import apace.gameplay.map.generator.SequenceGenerator;
+import apace.gameplay.map.generator.ShortcutGenerator;
+import apace.gameplay.map.generator.StairGenerator;
 import apace.gameplay.map.generator.StubDegenerator;
 import apace.utils.Direction;
 import apace.utils.Position;
@@ -25,7 +27,7 @@ public class Map {
 	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
-	private boolean useFog = true;
+	private boolean useFog = false;
 	private boolean isGenerating = false;
 	
 	public Map(int width, int height) {
@@ -44,7 +46,7 @@ public class Map {
 		isGenerating = true;
 		clear();
 		System.out.println("Creating map (" + width + ", " + height + ").");
-		new SequenceGenerator(new RoomGenerator(), new HallwayGenerator(), new DoorGenerator(), new StubDegenerator()).generate(this, x, y, 0);
+		new SequenceGenerator(new RoomGenerator(), new HallwayGenerator(), new DoorGenerator(), /*new ShortcutGenerator(),*/ new StubDegenerator(), new StairGenerator()).generate(this, x, y, 0);
 		isGenerating = false;
 	}
 	

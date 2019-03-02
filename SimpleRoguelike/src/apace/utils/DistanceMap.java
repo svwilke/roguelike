@@ -1,6 +1,7 @@
 package apace.utils;
 
 import apace.gameplay.map.Map;
+import apace.lib.Tiles;
 
 public class DistanceMap {
 
@@ -75,6 +76,9 @@ public class DistanceMap {
 		}
 		if(map.hasActor(p)) {
 			return 10;
+		}
+		if(map.hasTile(p) && map.getTile(p) != Tiles.WALL) {
+			return 1;
 		}
 		return 100;
 	}

@@ -30,6 +30,7 @@ public class HallwayGenerator implements IMapGenerator {
 	
 	@Override
 	public void generate(Map map, int startX, int startY, int level) {
+		worm(map, new Position(startX, startY));
 		ArrayList<Position> wormStarts = getAllWithFlag(map, 255);
 		while(wormStarts.size() > 0) {
 			Position start = select(wormStarts);

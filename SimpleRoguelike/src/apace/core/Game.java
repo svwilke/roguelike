@@ -25,6 +25,7 @@ import apace.process.IProcessable;
 import apace.process.MultiProcess;
 import apace.process.ScheduledCall;
 import apace.process.SequenceProcess;
+import apace.process.WaitFrames;
 import apace.utils.Direction;
 import apace.utils.Position;
 
@@ -66,7 +67,7 @@ public class Game implements IProcessable {
     public static KeyHandler keyHandler = SimpleRoguelike.keyHandler;
     public static MouseHandler mouseHandler = SimpleRoguelike.mouseHandler;
     
-    public static Map map = new Map(24, 16);
+    public static Map map = new Map(16, 16);
     
     public static ActorPlayer player;
     
@@ -105,10 +106,10 @@ public class Game implements IProcessable {
 			}
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPECIAL1)) {
-			Reference.SCALING++;
+			//
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPECIAL2)) {
-			Reference.SCALING--;
+			Logic.push(new ScheduledCall(() -> {map.generate(player.getPosition().getX(), player.getPosition().getY()); map.addActor(player.getPosition(), Game.player);}));
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPACE)) {
 			//Logic.push(new ScheduledCall(() -> Logic.push(doAi())));

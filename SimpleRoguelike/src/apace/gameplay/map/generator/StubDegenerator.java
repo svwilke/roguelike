@@ -3,6 +3,7 @@ package apace.gameplay.map.generator;
 import java.util.LinkedList;
 import java.util.List;
 
+import apace.core.Logic;
 import apace.gameplay.map.Map;
 import apace.gameplay.map.TileWall;
 import apace.lib.Tiles;
@@ -26,6 +27,7 @@ public class StubDegenerator implements IMapGenerator {
 				Integer.parseInt("00000011", 2)
 		};
 		List<Position> candidates = new LinkedList<>();
+		boolean first = false;
 		do {
 			for(Position p : candidates) {
 				map.setTile(p, Tiles.WALL);
@@ -39,6 +41,13 @@ public class StubDegenerator implements IMapGenerator {
 					}
 				}
 			}
+			if(!first) {
+				System.out.println("First candidates = " + candidates.size());
+				first = true;
+			}
+			//if(Logic.random.nextInt(10) == 0) {
+			//	break;
+			//}
 		} while(candidates.size() > 0);
 		
 	}
