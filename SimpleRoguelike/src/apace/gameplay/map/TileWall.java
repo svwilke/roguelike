@@ -25,7 +25,7 @@ public class TileWall extends Tile {
 		//g.drawString("" + bitfield, pos.getPixelX(), pos.getPixelY() + 5);
 		//Render.drawText(g, "" + bitfield, pos.getPixelX(), pos.getPixelY(), Color.white);
 		Position below = pos.down();
-		if(map.isWalkable(below)) {
+		if(map.isInBounds(below)) {
 			//p.swap(Palette.CLEAR, Palette.BLACK);
 			//System.out.println("tru");
 			super.render(g, p, Sprites.HALFWALL, below);

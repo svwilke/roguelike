@@ -30,7 +30,8 @@ public class Sprites {
 	public static AnimatedSprite SLIME_LARGE;
 	public static AnimatedSprite GROO;
 	public static AnimatedSprite TORCH;
-	public static Sprite DOOR;
+	public static Sprite DOOR_HORIZONTAL;
+	public static Sprite DOOR_VERTICAL;
 	public static Sprite CHEST_CLOSED_LARGE;
 	public static Sprite CHEST_OPEN_LARGE;
 	public static Sprite CHEST_CLOSED_SMALL;
@@ -48,7 +49,7 @@ public class Sprites {
 	
 	private static SpriteSheet sheet = new SpriteSheet("sprites.png", Game.palette);
 	private static SpriteSheet actorSheet = new SpriteSheet("actors2.png", Game.palette);
-	private static SpriteSheet wallSheet = new SpriteSheet("walls.png", Game.palette);
+	private static SpriteSheet wallSheet = new SpriteSheet("walls6.png", Game.palette);
 	private static SpriteSheet holeSheet = new SpriteSheet("hole2.png", Game.palette);
 	
 	static {
@@ -60,7 +61,8 @@ public class Sprites {
 		SLIME_SMALL = new AnimatedSprite(actorSheet, 0, 2);
 		SLIME_LARGE = new AnimatedSprite(actorSheet, 0, 1);
 		GROO = new AnimatedSprite(actorSheet, 0, 3);
-		DOOR = sheet.getSprite(6, 0);
+		DOOR_HORIZONTAL = sheet.getSprite(6, 0);
+		DOOR_VERTICAL = sheet.getSprite(7, 0);
 		CHEST_CLOSED_LARGE = sheet.getSprite(6, 4);
 		CHEST_OPEN_LARGE = sheet.getSprite(7, 4);
 		CHEST_CLOSED_SMALL = sheet.getSprite(4, 4);
