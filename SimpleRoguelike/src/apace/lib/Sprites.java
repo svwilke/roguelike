@@ -48,9 +48,9 @@ public class Sprites {
 	public static Sprite[] WALLS;
 	
 	private static SpriteSheet sheet = new SpriteSheet("sprites.png", Game.palette);
-	private static SpriteSheet actorSheet = new SpriteSheet("actors2.png", Game.palette);
+	private static SpriteSheet actorSheet = new SpriteSheet("actors.png", Game.palette);
 	private static SpriteSheet wallSheet = new SpriteSheet("walls6.png", Game.palette);
-	private static SpriteSheet holeSheet = new SpriteSheet("hole2.png", Game.palette);
+	private static SpriteSheet holeSheet = new SpriteSheet("hole.png", Game.palette);
 	
 	static {
 		WALL = sheet.getSprite(4, 0);
