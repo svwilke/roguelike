@@ -1,6 +1,15 @@
 package apace.utils;
 
 public class Flags {
+	
+	public static final int LEFT = 7;
+	public static final int RIGHT = 6;
+	public static final int UP = 5;
+	public static final int DOWN = 4;
+	public static final int UP_LEFT = 3;
+	public static final int UP_RIGHT = 2;
+	public static final int DOWN_LEFT = 1;
+	public static final int DOWN_RIGHT = 0;
 
 	public static boolean get(int flags, int pos) {
 		int b = 1 << pos;
