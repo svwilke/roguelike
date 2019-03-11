@@ -50,7 +50,7 @@ public class Sprites {
 	private static SpriteSheet sheet = new SpriteSheet("sprites.png", Game.palette);
 	private static SpriteSheet actorSheet = new SpriteSheet("actors.png", Game.palette);
 	private static SpriteSheet wallSheet = new SpriteSheet("walls6.png", Game.palette);
-	private static SpriteSheet holeSheet = new SpriteSheet("hole.png", Game.palette);
+	private static SpriteSheet holeSheet = new SpriteSheet("hole3.png", Game.palette);
 	
 	static {
 		WALL = sheet.getSprite(4, 0);
