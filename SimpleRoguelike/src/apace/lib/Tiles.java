@@ -30,7 +30,7 @@ import apace.utils.Position;
 
 public class Tiles {
 
-	public static Tile FLOOR = new Tile(Sprites.FLOOR, true, false, false);
+	public static Tile FLOOR = new Tile(Sprites.EMPTY, true, false, false);
 	public static TileWall WALL = new TileWall();
 	public static TileChest CHEST_LARGE = new TileChest(Sprites.CHEST_CLOSED_LARGE, Sprites.CHEST_OPEN_LARGE);
 	public static TileChest CHEST_SMALL = new TileChest(Sprites.CHEST_CLOSED_SMALL, Sprites.CHEST_OPEN_SMALL);
