@@ -13,12 +13,12 @@ public class Room extends Box {
 
 	private Map map;
 	private List<Door> doors;
-	private Type type;
+	private Form form;
 	
 	public Room(Map map, int x, int y, int w, int h) {
 		super(x, y, w, h);
 		this.map = map;
-		type = Type.UNIDENTIFIED;
+		form = Form.UNIDENTIFIED;
 		identify();
 	}
 	
@@ -26,8 +26,8 @@ public class Room extends Box {
 		return doors;
 	}
 	
-	public Type getType() {
-		return type;
+	public Form getForm() {
+		return form;
 	}
 
 	private void identify() {
@@ -42,37 +42,57 @@ public class Room extends Box {
 					door.direction = d;
 					doors.add(door);
 				} else
-				if(map.isInBounds(pd) && map.getTile(pd) == Tiles.STAIRS_UP) {
-					type = Type.STAIRSUP;
+				if(form == Form.UNIDENTIFIED && map.isInBounds(pd) && map.getTile(pd) == Tiles.STAIRS_UP) {
+					form = Form.STAIRSUP;
+				} else
+				if(form == Form.UNIDENTIFIED && map.isInBounds(pd) && map.getTile(pd) == Tiles.STAIRS_DOWN) {
+					form = Form.STAIRSDOWN;
 				}
 			}
-			if(map.getTile(p) == Tiles.STAIRS_DOWN) {
-				type = Type.STAIRSDOWN;
+			if(form == Form.UNIDENTIFIED && map.getTile(p) == Tiles.STAIRS_DOWN) {
+				form = Form.STAIRSDOWN;
 			}
-			if(map.getTile(p) == Tiles.STAIRS_UP) {
-				type = Type.STAIRSUP;
+			if(form == Form.UNIDENTIFIED && map.getTile(p) == Tiles.STAIRS_UP) {
+				form = Form.STAIRSUP;
 			}
 		}
-		if(type == Type.UNIDENTIFIED) {
+		if(form == Form.UNIDENTIFIED) {
 			if(doors.size() > 2) {
-				type = Type.JUNCTION;
+				form = Form.JUNCTION;
 			} else
 			if(doors.size() == 1) {
-				type = Type.DEADEND;
+				form = Form.DEADEND;
 			} else
 			if(doors.size() == 0) {
-				type = Type.SECRET;
+				form = Form.SECRET;
 			} else
 			if(doors.size() == 2) {
 				Position p0 = doors.get(0).direction.getOpposite().from(doors.get(0).position);
 				Position p1 = doors.get(1).direction.getOpposite().from(doors.get(1).position);
-				if(Box.createBounding(p0, p1).size() < size() / 2) {
-					type = Type.PASSBY;
+				Box doorBounds = Box.createBounding(p0, p1);
+				if(doorBounds.size() <= size() / 2 && subtract(doorBounds).size() == 1) {
+					form = Form.PASSBY;
 				} else {
-					type = Type.PASSTHRU;
+					form = Form.PASSTHRU;
 				}
 			}
 		}
+	}
+	
+	public List<Position> getDoorSafePositions() {
+		List<Position> doorInsides = new LinkedList<Position>();
+		for(Door d : doors) {
+			doorInsides.add(d.direction.getOpposite().from(d.position));
+		}
+		Box doorBounds = Box.createBounding(doorInsides);
+		List<Box> result = subtract(doorBounds);
+		List<Position> allPositions = new LinkedList<Position>();
+		for(Box b : result) {
+			for(Position p : b) {
+				allPositions.add(p);
+			}
+		}
+		return allPositions;
 	}
 	
 	public class Door {
@@ -80,7 +100,7 @@ public class Room extends Box {
 		public Direction direction;
 	}
 	
-	public enum Type {
+	public enum Form {
 		UNIDENTIFIED, PASSTHRU, PASSBY, JUNCTION, DEADEND, STAIRSUP, STAIRSDOWN, SECRET
 	}
 }

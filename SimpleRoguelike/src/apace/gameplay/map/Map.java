@@ -12,7 +12,7 @@ import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
 import apace.gameplay.map.generator.DoorGenerator;
 import apace.gameplay.map.generator.HallwayGenerator;
-import apace.gameplay.map.generator.RoomDecorator;
+import apace.gameplay.map.generator.RoomClassifier;
 import apace.gameplay.map.generator.RoomGenerator;
 import apace.gameplay.map.generator.SequenceGenerator;
 import apace.gameplay.map.generator.StairGenerator;
@@ -27,7 +27,7 @@ public class Map {
 	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
-	private boolean useFog = false;
+	private boolean useFog = true;
 	private boolean isGenerating = false;
 	
 	public Map(int width, int height) {
@@ -53,7 +53,7 @@ public class Map {
 //				new ShortcutGenerator(),
 				new StubDegenerator(),
 				new StairGenerator(),
-				new RoomDecorator()
+				new RoomClassifier()
 		).generate(this, x, y, 0);
 		isGenerating = false;
 	}

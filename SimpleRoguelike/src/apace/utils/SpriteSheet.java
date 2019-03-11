@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -19,8 +20,9 @@ public class SpriteSheet {
 	private HashMap<Integer, Integer> colorIndices;
 
 	public SpriteSheet(String fileName, Palette palette) {
+		URL url = Sprites.class.getResource("/images/" + fileName);
 		try {
-			BufferedImage image = ImageIO.read(Sprites.class.getResource("/images/" + fileName));
+			BufferedImage image = ImageIO.read(url);
 			int w = image.getWidth();
 			int h = image.getHeight();
 			
@@ -38,7 +40,8 @@ public class SpriteSheet {
 				colorIndices.put(c.getRGB(), i);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println("Image not found: " + url.toString());
+			//e.printStackTrace();
 		}
 	}
 	

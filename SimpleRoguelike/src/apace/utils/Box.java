@@ -33,6 +33,43 @@ public class Box implements Iterable<Position> {
 	public boolean contains(Position p) {
 		return p.getX() >= x && p.getX() < x + w && p.getY() >= y && p.getY() < y + h;
 	}
+	
+	public List<Box> subtract(Box other) {
+		List<Box> result = new LinkedList<Box>();
+		List<Position> allResulting = new LinkedList<Position>();
+		for(Position p : this) {
+			if(!other.contains(p))
+				allResulting.add(p);
+		}
+
+		for(Position p : allResulting) {
+			Position right = p;
+			Position down = p;
+			if(anyContains(result, p)) {
+				continue;
+			}
+			int w = 0, h = 0;
+			while(allResulting.contains(right) && !anyContains(result, right)) {
+				right = right.right();
+				w++;
+			}
+			while(allResulting.contains(down) && !anyContains(result, down)) {
+				down = down.down();
+				h++;
+			}
+			result.add(new Box(p.getX(), p.getY(), w, h));
+		}
+		
+		return result;
+	}
+	
+	private static boolean anyContains(List<Box> boxes, Position p) {
+		for(Box b : boxes) {
+			if(b.contains(p))
+				return true;
+		}
+		return false;
+	}
 
 	@Override
 	public Iterator<Position> iterator() {
@@ -53,7 +90,7 @@ public class Box implements Iterable<Position> {
 			maxX = Math.max(maxX, p.getX());
 			maxY = Math.max(maxY, p.getY());
 		}
-		return new Box(minX, minY, 1 + maxX - minX, 1 + maxY - minY);
+		return new Box(minX, minY, maxX - minX + 1, maxY - minY + 1);
 	}
 	
 	public static Box createBounding(Iterable<Position> positions) {
@@ -64,6 +101,6 @@ public class Box implements Iterable<Position> {
 			maxX = Math.max(maxX, p.getX());
 			maxY = Math.max(maxY, p.getY());
 		}
-		return new Box(minX, minY, 1 + maxX - minX, 1 + maxY - minY);
+		return new Box(minX, minY, maxX - minX + 1, maxY - minY + 1);
 	}
 }
