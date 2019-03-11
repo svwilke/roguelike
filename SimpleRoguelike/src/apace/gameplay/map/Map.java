@@ -27,7 +27,7 @@ public class Map {
 	private boolean[][] visibility;
 	//private HashMap<Position, Tile> tiles;
 	private HashMap<Position, Actor> actors;
-	private boolean useFog = true;
+	public boolean useFog = true;
 	private boolean isGenerating = false;
 	
 	public Map(int width, int height) {

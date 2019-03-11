@@ -54,7 +54,7 @@ public class TileWall extends Tile {
 		int add = 128;
 		for(Direction d : Direction.values()) {
 			int same = 1;
-			if(map.isInBounds(d.from(pos)) && (!(map.getTile(d.from(pos)) instanceof TileWall) || !map.isVisible(d.from(pos)))) {
+			if(map.isInBounds(d.from(pos)) && (!(map.getTile(d.from(pos)) instanceof TileWall) || (map.useFog && !map.isVisible(d.from(pos))))) {
 				same = 0;
 			}
 			b += same * add;

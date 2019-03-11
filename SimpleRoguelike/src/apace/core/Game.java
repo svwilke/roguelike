@@ -106,7 +106,7 @@ public class Game implements IProcessable {
 			}
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPECIAL1)) {
-			//
+			map.useFog = !map.useFog;
 		}
 		if(keyHandler.isKeyDownOnce(Keys.SPECIAL2)) {
 			Logic.push(new ScheduledCall(() -> {map.generate(player.getPosition().getX(), player.getPosition().getY()); map.addActor(player.getPosition(), Game.player);}));
