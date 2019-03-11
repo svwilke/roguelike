@@ -5,7 +5,7 @@ public class PaletteSwap {
 	private int[] swaps;
 	
 	public static PaletteSwap WHITE = new PaletteSwap(Palette.WHITE);
-	public static PaletteSwap DARK = new PaletteSwap(new int[] {0,0,1,1,2,1,13,6,4,4,9,3,13,1,13,14});
+	public static PaletteSwap DARK = new PaletteSwap(new int[] {0,0,1,1,2,1,13,6,4,4,9,3,13,1,13,14,16});
 	
 	public PaletteSwap() {
 		this.swaps = new int[Palette.size];
