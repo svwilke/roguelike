@@ -20,6 +20,9 @@ public class Sprite {
 		this.width = width;
 		this.height = height;
 		data = new int[width * height];
+		for(int i = 0; i < data.length; i++) {
+			data[i] = Palette.CLEAR;
+		}
 	}
 	
 	public Sprite(int[] data, int width, int height) {
