@@ -25,16 +25,13 @@ public class Tile {
 	protected PaletteSwap paletteSwap = null;
 	
 	public Tile(Sprite sprite, boolean walkable, boolean opaque) {
-		this.sprite = sprite;
-		this.isWalkable = walkable;
-		//this.clearBackground = !walkable;
-		this.isOpaque = opaque;
+		this(sprite, walkable, opaque, true);
+		
 	}
 	
 	public Tile(Sprite sprite, boolean walkable, boolean opaque, boolean clearBackground) {
 		this.sprite = sprite;
 		this.isWalkable = walkable;
-		//this.clearBackground = !walkable;
 		this.isOpaque = opaque;
 		this.setClear(clearBackground);
 	}
