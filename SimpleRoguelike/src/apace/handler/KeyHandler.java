@@ -20,6 +20,8 @@ public class KeyHandler implements KeyListener{
             
     private KeyState[] keys = null;
     
+    private int buffer = -1;
+    
     public KeyHandler() {
         currentKeys = new boolean[KEY_COUNT];
         
@@ -35,7 +37,10 @@ public class KeyHandler implements KeyListener{
             if(currentKeys[i]) {
                 if(keys[i] == KeyState.RELEASED) {
                     keys[i] = KeyState.ONCE;
-                }else{
+                    if(buffer < 0) {
+                		buffer = i;
+                	}
+                } else {
                     keys[i] = KeyState.PRESSED;
                 }
             }else{
@@ -75,6 +80,16 @@ public class KeyHandler implements KeyListener{
         return false;
     }
     
+    public boolean isKeyDownBuffered(int keyCode) {
+        if(keys[keyCode] == KeyState.ONCE ||
+           keys[keyCode] == KeyState.PRESSED ||
+           buffer == keyCode) {
+        	buffer = -1;
+        	return true;
+        }
+        return false;
+    }
+    
     /*public boolean isKeyDownOnce(int keyCode) {
         if(keys[keyCode] == KeyState.ONCE) {
             return true;
@@ -84,6 +99,14 @@ public class KeyHandler implements KeyListener{
     
     public boolean isKeyDownOnce(int keyCode) {
     	if(keys[keyCode] == KeyState.ONCE) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean isKeyDownOnceBuffered(int keyCode) {
+    	if(keys[keyCode] == KeyState.ONCE || buffer == keyCode) {
+    		buffer = -1;
             return true;
         }
         return false;

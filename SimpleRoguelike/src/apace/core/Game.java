@@ -100,7 +100,7 @@ public class Game implements IProcessable {
 		Direction[] direction = Direction.values();
 		//int key = keyHandler.getBuffer();
 		for(int i = 0; i < keys.length; i++) {
-			if(keyHandler.isKeyDownOnce(keys[i])) {
+			if(keyHandler.isKeyDownOnceBuffered(keys[i])) {
 			//if(key == keys[i]) {
 				anim = player.tryMove(direction[i], map);
 			}
