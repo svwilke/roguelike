@@ -3,9 +3,7 @@ package apace.gameplay.map.generator;
 import java.util.LinkedList;
 import java.util.List;
 
-import apace.core.Logic;
 import apace.gameplay.map.Map;
-import apace.gameplay.map.TileWall;
 import apace.lib.Tiles;
 import apace.utils.Flags;
 import apace.utils.Position;

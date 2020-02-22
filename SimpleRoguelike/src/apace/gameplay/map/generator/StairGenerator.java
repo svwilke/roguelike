@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import apace.core.Logic;
 import apace.gameplay.map.Map;
 import apace.lib.Tiles;
-import apace.utils.Direction;
-import apace.utils.DistanceMap;
 import apace.utils.Flags;
 import apace.utils.Position;
 

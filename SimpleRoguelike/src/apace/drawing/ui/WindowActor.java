@@ -12,6 +12,7 @@ import apace.gameplay.actor.ActorLiving;
 import apace.lib.Reference;
 import apace.utils.Property;
 
+@SuppressWarnings("deprecation")
 public class WindowActor extends Window implements Observer {
 
 	public WindowActor(int tx, int ty, ActorLiving actor) {

@@ -1,9 +1,6 @@
 package apace.gameplay.map;
 
-import java.awt.Graphics2D;
-
 import apace.core.Logic;
-import apace.drawing.Palette;
 import apace.gameplay.actor.Actor;
 import apace.gameplay.actor.ActorPlayer;
 import apace.lib.Sprites;

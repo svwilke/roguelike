@@ -25,7 +25,6 @@ import apace.process.IProcessable;
 import apace.process.MultiProcess;
 import apace.process.ScheduledCall;
 import apace.process.SequenceProcess;
-import apace.process.WaitFrames;
 import apace.utils.Direction;
 import apace.utils.Position;
 

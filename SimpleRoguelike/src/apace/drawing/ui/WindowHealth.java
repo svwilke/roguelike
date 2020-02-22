@@ -8,6 +8,7 @@ import apace.drawing.Window;
 import apace.gameplay.actor.ActorLiving;
 import apace.utils.Property;
 
+@SuppressWarnings("deprecation")
 public class WindowHealth extends Window implements Observer {
 
 	public WindowHealth(int tx, int ty, ActorLiving actor) {

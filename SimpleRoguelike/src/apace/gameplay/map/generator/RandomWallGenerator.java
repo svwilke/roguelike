@@ -2,7 +2,6 @@ package apace.gameplay.map.generator;
 
 import apace.core.Logic;
 import apace.gameplay.map.Map;
-import apace.gameplay.actor.Actor;
 import apace.lib.Enemies;
 import apace.lib.Tiles;
 import apace.utils.Position;
@@ -29,20 +28,7 @@ public class RandomWallGenerator implements IMapGenerator {
 					continue;
 				}
 				map.setTile(new Position(i, j), Tiles.FLOOR);
-				continue;/*
-				if(i == 0 || j == 0 || i == width - 1 || j == height - 1) {
-					map.setTile(new Position(i, j), Tiles.WALL);
-				} else {
-					switch(Logic.random.nextInt(7)) {
-					case 2: case 3:
-						map.setTile(new Position(i, j), Tiles.WALL);
-						break;
-					default:
-						map.setTile(new Position(i, j), Tiles.FLOOR);
-						break;
-					}
-				}*/
-				
+				continue;
 			}
 		}
 		Position ptl = new Position(1, 1).add(Position.random(width - 4, height - 4));

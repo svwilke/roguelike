@@ -2,6 +2,7 @@ package apace.utils;
 
 import java.util.Observable;
 
+@SuppressWarnings("deprecation")
 public class Property<T> extends Observable implements Cloneable {
 
 	private T value;

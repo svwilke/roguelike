@@ -1,9 +1,7 @@
 package apace.gameplay.map.generator;
 
 import apace.gameplay.map.Map;
-import apace.gameplay.map.generator.Room.Form;
 import apace.lib.Tiles;
-import apace.utils.Direction;
 import apace.utils.Position;
 import apace.utils.Utils;
 

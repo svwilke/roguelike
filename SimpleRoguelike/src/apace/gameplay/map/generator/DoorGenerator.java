@@ -83,6 +83,7 @@ public class DoorGenerator implements IMapGenerator {
 		candidates.clear();
 	}
 	
+	@SuppressWarnings("unused")
 	private int distance(Map map, Position p0, Position p1) {
 		DistanceMap dm = new DistanceMap(map);
 		dm.calculate(p0);
